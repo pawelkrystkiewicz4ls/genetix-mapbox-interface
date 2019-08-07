@@ -1,5 +1,6 @@
 const yellow = '#E3B505';
 const blue = '#2677BD';
+const mapboxBlue = '#3544FE';
 const green = '#2ecc71';
 const orange = '#e67e22';
 const purple = '#D27AFF';
@@ -12,54 +13,62 @@ const map = L.mapbox
 	.setView([ 0, 0 ], 3)
 	.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 
-const data = { type: 'FeatureCollection', features: [] };
-let markersLayer = L.mapbox.featureLayer(data).addTo(map);
+// let markersLayer = L.mapbox.featureLayer({ type: 'FeatureCollection', features: [] }); //.addTo(map);
+const initiateMarkersLayer = () => L.mapbox.featureLayer({ type: 'FeatureCollection', features: [] }); //.addTo(map);
+const initiateClusterGroup = () =>
+	new L.MarkerClusterGroup({
+		polygonOptions: {
+			fillColor: '#3887be',
+			color: '#3887be',
+			weight: 2,
+			opacity: 1,
+			fillOpacity: 0.5
+		}
+	});
 
+let markersLayer = initiateMarkersLayer();
+
+let clusterGroup = initiateClusterGroup();
+//RESET MAP VIEW 0,0
 const resetView = () => {
 	map.setView([ 0, 0 ], 3);
 };
 
-const addGeoJSONMarkers = (features) => {
+
+
+const addGeoJSONMarkers = (features = []) => {
+	markersLayer = initiateMarkersLayer();
+	clusterGroup = initiateClusterGroup();
+
 	markersLayer.setGeoJSON({ type: 'FeatureCollection', features });
 	map.fitBounds(markersLayer.getBounds());
 
-	// Bind a popup to each
-	markersLayer
-		.eachLayer((layer) => {
-			layer.bindPopup(layer.feature.properties.description, { closeButton: false });
-		})
-		.addTo(map);
-
-	// Open popups on hover
-	markersLayer.on('mouseover', function(e) {
-		e.layer.openPopup();
+	markersLayer.eachLayer((layer) => {
+		layer.bindPopup(layer.feature.properties.description, { closeButton: false });
 	});
-	markersLayer.on('mouseout', function(e) {
-		e.layer.closePopup();
+	markersLayer.eachLayer(function(layer) {
+		clusterGroup.addLayer(layer);
 	});
-
-	markersLayer.on('click', function(e) {
-		map.panTo(e.layer.getLatLng());
-
-		// let clickedMarker = e.layer.feature;
-		// Get the GeoJSON from libraryFeatures and hospitalFeatures
-		// let oldMarkers = markersLayer.getGeoJSON();
-		// Using Turf, find the nearest hospital to library clicked
-		// Change the nearest hospital to a large marker
-		// clickedMarker.properties['marker-size'] = 'large';
-
-		// oldMarkers.push(clickedMarker);
-		// // Add the new GeoJSON to hospitalLayer
-		// markersLayer.setGeoJSON(oldMarkers);
-		// // Bind popups to new hospitalLayer and open popup
-		// // for nearest hospital
-		// markersLayer.eachLayer((layer) => {
-		// 	layer.bindPopup(layer.feature.properties.description, { closeButton: false });
-		// });
-	});
+	map.addLayer(clusterGroup);
 };
+
+//SET VIEW TO ACTIVE MARKERS
 const getMarkersBounds = () => {
 	if (markersLayer._geojson.features && markersLayer._geojson.features.length > 0) {
 		map.fitBounds(markersLayer.getBounds());
 	} else return `Can't focus on empty layer`;
 };
+
+/**MARKERS EVENTS START */
+markersLayer.on('mouseover', function(e) {
+	e.layer.openPopup();
+});
+markersLayer.on('mouseout', function(e) {
+	e.layer.closePopup();
+});
+
+markersLayer.on('click', function(e) {
+	map.panTo(e.layer.getLatLng());
+});
+
+/**MARKER EVENTS END */

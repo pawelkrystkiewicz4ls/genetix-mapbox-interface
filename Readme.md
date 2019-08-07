@@ -18,9 +18,9 @@ Jest to tablica zawierająca obiektu jak w przykładzie pniżej:
 	}
 ```
 
-## Dodawanie znaczników na mapie
+## Dodawanie znaczników na mapie `addGeoJSONMarkers()`
 
-`addGeoJSONMarkers()`
+
 
 Funkcja przyjmuje zmienne w postaci tablicy:
 

@@ -9,8 +9,8 @@
 			"cartodb_id": 46,
 			"description": "Vilnius",
 			"created_at": "2015-05-26T11:08:51Z",
-      "updated_at": "2015-05-26T11:20:42Z",
-      "marker-symbol": "marker-15"
+			"updated_at": "2015-05-26T11:20:42Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -23,7 +23,8 @@
 			"cartodb_id": 37,
 			"description": "Skopje",
 			"created_at": "2015-05-26T11:03:46Z",
-			"updated_at": "2015-05-26T11:04:16Z"
+			"updated_at": "2015-05-26T11:04:16Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -36,7 +37,8 @@
 			"cartodb_id": 22,
 			"description": "Luxembourg",
 			"created_at": "2015-05-26T09:31:58Z",
-			"updated_at": "2015-05-26T10:55:41Z"
+			"updated_at": "2015-05-26T10:55:41Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -49,7 +51,8 @@
 			"cartodb_id": 1,
 			"description": "Amsterdam",
 			"created_at": "2015-05-26T09:07:04Z",
-			"updated_at": "2015-05-26T09:11:22Z"
+			"updated_at": "2015-05-26T09:11:22Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -62,7 +65,8 @@
 			"cartodb_id": 2,
 			"description": "Andorra la Vella",
 			"created_at": "2015-05-26T09:11:33Z",
-			"updated_at": "2015-05-26T09:12:19Z"
+			"updated_at": "2015-05-26T09:12:19Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -75,7 +79,8 @@
 			"cartodb_id": 23,
 			"description": "Madrid",
 			"created_at": "2015-05-26T10:55:52Z",
-			"updated_at": "2015-05-26T10:56:20Z"
+			"updated_at": "2015-05-26T10:56:20Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -88,7 +93,8 @@
 			"cartodb_id": 3,
 			"description": "Ankara",
 			"created_at": "2015-05-26T09:13:46Z",
-			"updated_at": "2015-05-26T09:14:16Z"
+			"updated_at": "2015-05-26T09:14:16Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -101,7 +107,8 @@
 			"cartodb_id": 38,
 			"description": "Sofia",
 			"created_at": "2015-05-26T11:04:21Z",
-			"updated_at": "2015-05-26T11:04:51Z"
+			"updated_at": "2015-05-26T11:04:51Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -114,7 +121,8 @@
 			"cartodb_id": 24,
 			"description": "Minsk",
 			"created_at": "2015-05-26T10:56:24Z",
-			"updated_at": "2015-05-26T10:56:51Z"
+			"updated_at": "2015-05-26T10:56:51Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -127,7 +135,8 @@
 			"cartodb_id": 5,
 			"description": "Athens",
 			"created_at": "2015-05-26T09:17:21Z",
-			"updated_at": "2015-05-26T09:17:45Z"
+			"updated_at": "2015-05-26T09:17:45Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -140,7 +149,8 @@
 			"cartodb_id": 6,
 			"description": "Baku",
 			"created_at": "2015-05-26T09:18:09Z",
-			"updated_at": "2015-05-26T09:18:41Z"
+			"updated_at": "2015-05-26T09:18:41Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -153,7 +163,8 @@
 			"cartodb_id": 25,
 			"description": "Monaco",
 			"created_at": "2015-05-26T10:56:55Z",
-			"updated_at": "2015-05-26T10:57:26Z"
+			"updated_at": "2015-05-26T10:57:26Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -166,7 +177,8 @@
 			"cartodb_id": 7,
 			"description": "Belgrade",
 			"created_at": "2015-05-26T09:20:08Z",
-			"updated_at": "2015-05-26T09:20:46Z"
+			"updated_at": "2015-05-26T09:20:46Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -179,7 +191,8 @@
 			"cartodb_id": 39,
 			"description": "Stockholm",
 			"created_at": "2015-05-26T11:04:53Z",
-			"updated_at": "2015-05-26T11:05:19Z"
+			"updated_at": "2015-05-26T11:05:19Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -192,7 +205,8 @@
 			"cartodb_id": 8,
 			"description": "Berlin",
 			"created_at": "2015-05-26T09:20:49Z",
-			"updated_at": "2015-05-26T09:21:36Z"
+			"updated_at": "2015-05-26T09:21:36Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -205,7 +219,8 @@
 			"cartodb_id": 26,
 			"description": "Moscow",
 			"created_at": "2015-05-26T10:57:33Z",
-			"updated_at": "2015-05-26T10:58:00Z"
+			"updated_at": "2015-05-26T10:58:00Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -218,7 +233,8 @@
 			"cartodb_id": 9,
 			"description": "Bern",
 			"created_at": "2015-05-26T09:21:41Z",
-			"updated_at": "2015-05-26T09:22:10Z"
+			"updated_at": "2015-05-26T09:22:10Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -231,7 +247,8 @@
 			"cartodb_id": 47,
 			"description": "Warsaw",
 			"created_at": "2015-05-26T11:09:21Z",
-			"updated_at": "2015-05-26T11:15:30Z"
+			"updated_at": "2015-05-26T11:15:30Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -244,7 +261,8 @@
 			"cartodb_id": 10,
 			"description": "Bratislava",
 			"created_at": "2015-05-26T09:22:14Z",
-			"updated_at": "2015-05-26T09:22:43Z"
+			"updated_at": "2015-05-26T09:22:43Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -257,7 +275,8 @@
 			"cartodb_id": 27,
 			"description": "Nicosia",
 			"created_at": "2015-05-26T10:58:04Z",
-			"updated_at": "2015-05-26T10:58:44Z"
+			"updated_at": "2015-05-26T10:58:44Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -270,7 +289,8 @@
 			"cartodb_id": 11,
 			"description": "Brussels",
 			"created_at": "2015-05-26T09:22:47Z",
-			"updated_at": "2015-05-26T09:23:18Z"
+			"updated_at": "2015-05-26T09:23:18Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -283,7 +303,8 @@
 			"cartodb_id": 40,
 			"description": "Tallinn",
 			"created_at": "2015-05-26T11:05:22Z",
-			"updated_at": "2015-05-26T11:05:51Z"
+			"updated_at": "2015-05-26T11:05:51Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -296,7 +317,8 @@
 			"cartodb_id": 12,
 			"description": "Bucharest",
 			"created_at": "2015-05-26T09:23:23Z",
-			"updated_at": "2015-05-26T09:23:50Z"
+			"updated_at": "2015-05-26T09:23:50Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -309,7 +331,8 @@
 			"cartodb_id": 28,
 			"description": "Oslo",
 			"created_at": "2015-05-26T10:58:49Z",
-			"updated_at": "2015-05-26T10:59:12Z"
+			"updated_at": "2015-05-26T10:59:12Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -322,7 +345,8 @@
 			"cartodb_id": 29,
 			"description": "Paris",
 			"created_at": "2015-05-26T10:59:15Z",
-			"updated_at": "2015-05-26T10:59:40Z"
+			"updated_at": "2015-05-26T10:59:40Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -335,7 +359,8 @@
 			"cartodb_id": 13,
 			"description": "Budapest",
 			"created_at": "2015-05-26T09:24:06Z",
-			"updated_at": "2015-05-26T09:26:35Z"
+			"updated_at": "2015-05-26T09:26:35Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -348,7 +373,8 @@
 			"cartodb_id": 14,
 			"description": "Chișinău",
 			"created_at": "2015-05-26T09:24:31Z",
-			"updated_at": "2015-05-26T09:27:14Z"
+			"updated_at": "2015-05-26T09:27:14Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -361,7 +387,8 @@
 			"cartodb_id": 41,
 			"description": "Tbilisi",
 			"created_at": "2015-05-26T11:05:53Z",
-			"updated_at": "2015-05-26T11:06:32Z"
+			"updated_at": "2015-05-26T11:06:32Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -374,7 +401,8 @@
 			"cartodb_id": 15,
 			"description": "Copenhagen",
 			"created_at": "2015-05-26T09:27:48Z",
-			"updated_at": "2015-05-26T09:28:05Z"
+			"updated_at": "2015-05-26T09:28:05Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -387,7 +415,8 @@
 			"cartodb_id": 30,
 			"description": "Podgorica",
 			"created_at": "2015-05-26T10:59:49Z",
-			"updated_at": "2015-05-26T11:00:18Z"
+			"updated_at": "2015-05-26T11:00:18Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -400,7 +429,8 @@
 			"cartodb_id": 16,
 			"description": "Dublin",
 			"created_at": "2015-05-26T09:28:08Z",
-			"updated_at": "2015-05-26T09:28:42Z"
+			"updated_at": "2015-05-26T09:28:42Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -413,7 +443,8 @@
 			"cartodb_id": 48,
 			"description": "Yerevan",
 			"created_at": "2015-05-26T11:15:38Z",
-			"updated_at": "2015-05-26T11:16:04Z"
+			"updated_at": "2015-05-26T11:16:04Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -426,7 +457,8 @@
 			"cartodb_id": 17,
 			"description": "Helsinki",
 			"created_at": "2015-05-26T09:28:46Z",
-			"updated_at": "2015-05-26T09:29:14Z"
+			"updated_at": "2015-05-26T09:29:14Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -439,7 +471,8 @@
 			"cartodb_id": 31,
 			"description": "Prague",
 			"created_at": "2015-05-26T11:00:25Z",
-			"updated_at": "2015-05-26T11:01:04Z"
+			"updated_at": "2015-05-26T11:01:04Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -452,7 +485,8 @@
 			"cartodb_id": 18,
 			"description": "Kiev",
 			"created_at": "2015-05-26T09:29:19Z",
-			"updated_at": "2015-05-26T09:29:47Z"
+			"updated_at": "2015-05-26T09:29:47Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -465,7 +499,8 @@
 			"cartodb_id": 42,
 			"description": "Tirana",
 			"created_at": "2015-05-26T11:06:36Z",
-			"updated_at": "2015-05-26T11:07:02Z"
+			"updated_at": "2015-05-26T11:07:02Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -478,7 +513,8 @@
 			"cartodb_id": 19,
 			"description": "Lisbon",
 			"created_at": "2015-05-26T09:29:54Z",
-			"updated_at": "2015-05-26T09:30:19Z"
+			"updated_at": "2015-05-26T09:30:19Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -491,7 +527,8 @@
 			"cartodb_id": 32,
 			"description": "Reykjavík",
 			"created_at": "2015-05-26T11:01:15Z",
-			"updated_at": "2015-05-26T11:01:45Z"
+			"updated_at": "2015-05-26T11:01:45Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -504,7 +541,8 @@
 			"cartodb_id": 20,
 			"description": "Ljubljana",
 			"created_at": "2015-05-26T09:30:23Z",
-			"updated_at": "2015-05-26T09:30:54Z"
+			"updated_at": "2015-05-26T09:30:54Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -517,7 +555,8 @@
 			"cartodb_id": 21,
 			"description": "London",
 			"created_at": "2015-05-26T09:31:05Z",
-			"updated_at": "2015-05-26T09:31:40Z"
+			"updated_at": "2015-05-26T09:31:40Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -530,7 +569,8 @@
 			"cartodb_id": 43,
 			"description": "Vaduz",
 			"created_at": "2015-05-26T11:07:07Z",
-			"updated_at": "2015-05-26T11:07:34Z"
+			"updated_at": "2015-05-26T11:07:34Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -543,7 +583,8 @@
 			"cartodb_id": 33,
 			"description": "Riga",
 			"created_at": "2015-05-26T11:01:49Z",
-			"updated_at": "2015-05-26T11:02:15Z"
+			"updated_at": "2015-05-26T11:02:15Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -556,7 +597,8 @@
 			"cartodb_id": 49,
 			"description": "Zagreb",
 			"created_at": "2015-05-26T11:16:18Z",
-			"updated_at": "2015-05-26T11:16:40Z"
+			"updated_at": "2015-05-26T11:16:40Z",
+			"marker-color": "#3544FE"
 		}
 	},
 	{
@@ -569,7 +611,7 @@
 			"cartodb_id": 34,
 			"description": "Rome",
 			"created_at": "2015-05-26T11:02:19Z",
-			"updated_at": "2015-05-26T11:02:42Z"
+			"updated_at": "2015-05-26T11:02:42Z","marker-color": "#3544FE"
 		}
 	},
 	{
@@ -582,7 +624,7 @@
 			"cartodb_id": 44,
 			"description": "Valletta",
 			"created_at": "2015-05-26T11:07:39Z",
-			"updated_at": "2015-05-26T11:08:12Z"
+			"updated_at": "2015-05-26T11:08:12Z","marker-color": "#3544FE"
 		}
 	},
 	{
@@ -595,7 +637,7 @@
 			"cartodb_id": 35,
 			"description": "San Marino",
 			"created_at": "2015-05-26T11:02:45Z",
-			"updated_at": "2015-05-26T11:03:10Z"
+			"updated_at": "2015-05-26T11:03:10Z","marker-color": "#3544FE"
 		}
 	},
 	{
@@ -608,8 +650,7 @@
 			"cartodb_id": 36,
 			"description": "Sarajevo",
 			"created_at": "2015-05-26T11:03:16Z",
-      "updated_at": "2015-05-26T11:03:43Z"
-       ,"marker-symbol": "marker-15"
+			"updated_at": "2015-05-26T11:03:43Z","marker-color": "#3544FE"
 		}
 	},
 	{
@@ -622,7 +663,7 @@
 			"cartodb_id": 50,
 			"description": "Pristina",
 			"created_at": "2015-05-26T11:17:53Z",
-			"updated_at": "2015-05-26T11:18:13Z"
+			"updated_at": "2015-05-26T11:18:13Z","marker-color": "#3544FE"
 		}
 	},
 	{
@@ -635,7 +676,7 @@
 			"cartodb_id": 45,
 			"description": "Vienna",
 			"created_at": "2015-05-26T11:08:24Z",
-			"updated_at": "2015-05-26T11:08:47Z"
+			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
 		}
 	}
 ]
