@@ -1,0 +1,22 @@
+.genetix-popup{
+
+}
+
+.genetix-popup--header {
+	color: red;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.genetix-popup--values {
+	color: blue;
+}
+.genetix-popup--dates{
+  color:purple
+}
+.mapboxgl-marker {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border:1px solid gray;
+    background-color:lightblue;
+}
