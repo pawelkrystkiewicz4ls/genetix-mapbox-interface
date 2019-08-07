@@ -15,9 +15,11 @@ const map = L.mapbox
 const data = { type: 'FeatureCollection', features: [] };
 let markersLayer = L.mapbox.featureLayer(data).addTo(map);
 
-const addGeoJSONMarkers = (features) => {
-	// let data = { type: 'FeatureCollection', features };
+const resetView = () => {
+	map.setView([ 0, 0 ], 3);
+};
 
+const addGeoJSONMarkers = (features) => {
 	markersLayer.setGeoJSON({ type: 'FeatureCollection', features });
 	map.fitBounds(markersLayer.getBounds());
 

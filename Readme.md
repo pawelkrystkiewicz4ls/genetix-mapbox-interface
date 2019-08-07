@@ -1,8 +1,26 @@
 ### Mapa
 
+## Tablica znaczników
+
+Jest to tablica zawierająca obiektu jak w przykładzie pniżej:
+```
+	{
+		"type": "Feature",
+		"geometry": { "type": "Point", "coordinates": [
+      {Longitude: Float}, {Latitude: Float} ] },
+		"properties": {
+			"id": {RecordID: int},
+			"description": {PopupContents: string | int},
+			"marker-color": {hex-color: string},
+			"marker-size": Enum["medium" | "middle" | "large"],
+			"marker-symbol": {OrdersAmount: int}
+		}
+	}
+```
+
 ## Dodawanie znaczników na mapie
 
-`addGeojsonMarkers()`
+`addGeoJSONMarkers()`
 
 Funkcja przyjmuje zmienne w postaci tablicy:
 
@@ -32,23 +50,15 @@ Funkcja przyjmuje zmienne w postaci tablicy:
 	}
 ]
 
-
 ```
+## Aktualizowanie znaczników
+Wykonywane jest przez ponowne wywołanie funkcji `addGeoJSONMarkers` z nowym zestawem danych.
 
-## Tablica znaczników
+    Uwaga! Mapa nie zapamiętuje znaczników i dodanie nowego znacznika powinno następić po stronie użytkownika przez dodanie nowego punktu do zestawu danych jaki zostanie przekazany w argumencie funkcji.
 
-Jest to tablica poniższych obiektów:
-```
-	{
-		"type": "Feature",
-		"geometry": { "type": "Point", "coordinates": [
-      Longitude, Latitude ] },
-		"properties": {
-			"id": RecordID,
-			"description": PopupContent,
-			"marker-color": "hex-color",
-			"marker-size": "medium | middle | large",
-			"marker-symbol": OrdersAmount
-		}
-	}
-```
+
+## Usuwanie znaczników
+
+Usunięcie znaczników z mapy natępuje przez wywołanie funkcji `addGeoJSONMarkers` bez argumentów
+
+
