@@ -12,10 +12,15 @@ const map = L.mapbox
 	.setView([ 0, 0 ], 3)
 	.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 
-const addGeojsonMarkers = (features) => {
-	let data = { type: 'FeatureCollection', features };
-	const markersLayer = L.mapbox.featureLayer(data).addTo(map);
+const data = { type: 'FeatureCollection', features: [] };
+let markersLayer = L.mapbox.featureLayer(data).addTo(map);
+
+const addGeoJSONMarkers = (features) => {
+	// let data = { type: 'FeatureCollection', features };
+
+	markersLayer.setGeoJSON({ type: 'FeatureCollection', features });
 	map.fitBounds(markersLayer.getBounds());
+
 	// Bind a popup to each
 	markersLayer
 		.eachLayer((layer) => {
@@ -30,4 +35,29 @@ const addGeojsonMarkers = (features) => {
 	markersLayer.on('mouseout', function(e) {
 		e.layer.closePopup();
 	});
+
+	markersLayer.on('click', function(e) {
+		map.panTo(e.layer.getLatLng());
+
+		// let clickedMarker = e.layer.feature;
+		// Get the GeoJSON from libraryFeatures and hospitalFeatures
+		// let oldMarkers = markersLayer.getGeoJSON();
+		// Using Turf, find the nearest hospital to library clicked
+		// Change the nearest hospital to a large marker
+		// clickedMarker.properties['marker-size'] = 'large';
+
+		// oldMarkers.push(clickedMarker);
+		// // Add the new GeoJSON to hospitalLayer
+		// markersLayer.setGeoJSON(oldMarkers);
+		// // Bind popups to new hospitalLayer and open popup
+		// // for nearest hospital
+		// markersLayer.eachLayer((layer) => {
+		// 	layer.bindPopup(layer.feature.properties.description, { closeButton: false });
+		// });
+	});
+};
+const getMarkersBounds = () => {
+	if (markersLayer._geojson.features && markersLayer._geojson.features.length > 0) {
+		map.fitBounds(markersLayer.getBounds());
+	} else return `Can't focus on empty layer`;
 };
