@@ -1,0 +1,682 @@
+[
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 25.261688, 54.684947 ]
+		},
+		"properties": {
+			"id": 46,
+			"description": "Vilnius",
+			"created_at": "2015-05-26T11:08:51Z",
+			"updated_at": "2015-05-26T11:20:42Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 21.4333, 42 ]
+		},
+		"properties": {
+			"id": 37,
+			"description": "Skopje",
+			"created_at": "2015-05-26T11:03:46Z",
+			"updated_at": "2015-05-26T11:04:16Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 6.13, 49.61166 ]
+		},
+		"properties": {
+			"id": 22,
+			"description": "Luxembourg",
+			"created_at": "2015-05-26T09:31:58Z",
+			"updated_at": "2015-05-26T10:55:41Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 4.890444, 52.370197 ]
+		},
+		"properties": {
+			"id": 1,
+			"description": "Amsterdam",
+			"created_at": "2015-05-26T09:07:04Z",
+			"updated_at": "2015-05-26T09:11:22Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 1.5225, 42.5075 ]
+		},
+		"properties": {
+			"id": 2,
+			"description": "Andorra la Vella",
+			"created_at": "2015-05-26T09:11:33Z",
+			"updated_at": "2015-05-26T09:12:19Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ -3.71666, 40.383333 ]
+		},
+		"properties": {
+			"id": 23,
+			"description": "Madrid",
+			"created_at": "2015-05-26T10:55:52Z",
+			"updated_at": "2015-05-26T10:56:20Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 32.86666, 39.93333 ]
+		},
+		"properties": {
+			"id": 3,
+			"description": "Ankara",
+			"created_at": "2015-05-26T09:13:46Z",
+			"updated_at": "2015-05-26T09:14:16Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 23.33333, 42.7 ]
+		},
+		"properties": {
+			"id": 38,
+			"description": "Sofia",
+			"created_at": "2015-05-26T11:04:21Z",
+			"updated_at": "2015-05-26T11:04:51Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 27.566666, 53.9 ]
+		},
+		"properties": {
+			"id": 24,
+			"description": "Minsk",
+			"created_at": "2015-05-26T10:56:24Z",
+			"updated_at": "2015-05-26T10:56:51Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 23.716666, 37.966666 ]
+		},
+		"properties": {
+			"id": 5,
+			"description": "Athens",
+			"created_at": "2015-05-26T09:17:21Z",
+			"updated_at": "2015-05-26T09:17:45Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 49.882222, 40.395278 ]
+		},
+		"properties": {
+			"id": 6,
+			"description": "Baku",
+			"created_at": "2015-05-26T09:18:09Z",
+			"updated_at": "2015-05-26T09:18:41Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 7.416666, 43.73333 ]
+		},
+		"properties": {
+			"id": 25,
+			"description": "Monaco",
+			"created_at": "2015-05-26T10:56:55Z",
+			"updated_at": "2015-05-26T10:57:26Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 20.46666, 44.816666 ]
+		},
+		"properties": {
+			"id": 7,
+			"description": "Belgrade",
+			"created_at": "2015-05-26T09:20:08Z",
+			"updated_at": "2015-05-26T09:20:46Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 18.068611, 59.32944 ]
+		},
+		"properties": {
+			"id": 39,
+			"description": "Stockholm",
+			"created_at": "2015-05-26T11:04:53Z",
+			"updated_at": "2015-05-26T11:05:19Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 13.383333, 52.516666 ]
+		},
+		"properties": {
+			"id": 8,
+			"description": "Berlin",
+			"created_at": "2015-05-26T09:20:49Z",
+			"updated_at": "2015-05-26T09:21:36Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 37.616666, 55.75 ]
+		},
+		"properties": {
+			"id": 26,
+			"description": "Moscow",
+			"created_at": "2015-05-26T10:57:33Z",
+			"updated_at": "2015-05-26T10:58:00Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 7.45, 46.95 ]
+		},
+		"properties": {
+			"id": 9,
+			"description": "Bern",
+			"created_at": "2015-05-26T09:21:41Z",
+			"updated_at": "2015-05-26T09:22:10Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 21.01666, 52.23333 ]
+		},
+		"properties": {
+			"id": 47,
+			"description": "Warsaw",
+			"created_at": "2015-05-26T11:09:21Z",
+			"updated_at": "2015-05-26T11:15:30Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 17.109722, 48.143888 ]
+		},
+		"properties": {
+			"id": 10,
+			"description": "Bratislava",
+			"created_at": "2015-05-26T09:22:14Z",
+			"updated_at": "2015-05-26T09:22:43Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 33.36666, 35.16666 ]
+		},
+		"properties": {
+			"id": 27,
+			"description": "Nicosia",
+			"created_at": "2015-05-26T10:58:04Z",
+			"updated_at": "2015-05-26T10:58:44Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 4.35, 50.85 ]
+		},
+		"properties": {
+			"id": 11,
+			"description": "Brussels",
+			"created_at": "2015-05-26T09:22:47Z",
+			"updated_at": "2015-05-26T09:23:18Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 24.745278, 59.437222 ]
+		},
+		"properties": {
+			"id": 40,
+			"description": "Tallinn",
+			"created_at": "2015-05-26T11:05:22Z",
+			"updated_at": "2015-05-26T11:05:51Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 26.103888, 44.4325 ]
+		},
+		"properties": {
+			"id": 12,
+			"description": "Bucharest",
+			"created_at": "2015-05-26T09:23:23Z",
+			"updated_at": "2015-05-26T09:23:50Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 10.75, 59.95 ]
+		},
+		"properties": {
+			"id": 28,
+			"description": "Oslo",
+			"created_at": "2015-05-26T10:58:49Z",
+			"updated_at": "2015-05-26T10:59:12Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 2.3508, 48.8567 ]
+		},
+		"properties": {
+			"id": 29,
+			"description": "Paris",
+			"created_at": "2015-05-26T10:59:15Z",
+			"updated_at": "2015-05-26T10:59:40Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 19.050293, 47.494009 ]
+		},
+		"properties": {
+			"id": 13,
+			"description": "Budapest",
+			"created_at": "2015-05-26T09:24:06Z",
+			"updated_at": "2015-05-26T09:26:35Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 28.847351, 47.028014 ]
+		},
+		"properties": {
+			"id": 14,
+			"description": "Chișinău",
+			"created_at": "2015-05-26T09:24:31Z",
+			"updated_at": "2015-05-26T09:27:14Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 44.78333, 41.71666 ]
+		},
+		"properties": {
+			"id": 41,
+			"description": "Tbilisi",
+			"created_at": "2015-05-26T11:05:53Z",
+			"updated_at": "2015-05-26T11:06:32Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 12.568333, 55.676111 ]
+		},
+		"properties": {
+			"id": 15,
+			"description": "Copenhagen",
+			"created_at": "2015-05-26T09:27:48Z",
+			"updated_at": "2015-05-26T09:28:05Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 19.262892, 42.441286 ]
+		},
+		"properties": {
+			"id": 30,
+			"description": "Podgorica",
+			"created_at": "2015-05-26T10:59:49Z",
+			"updated_at": "2015-05-26T11:00:18Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ -6.259722, 53.34777 ]
+		},
+		"properties": {
+			"id": 16,
+			"description": "Dublin",
+			"created_at": "2015-05-26T09:28:08Z",
+			"updated_at": "2015-05-26T09:28:42Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 44.516666, 40.18333 ]
+		},
+		"properties": {
+			"id": 48,
+			"description": "Yerevan",
+			"created_at": "2015-05-26T11:15:38Z",
+			"updated_at": "2015-05-26T11:16:04Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 24.9375, 60.170833 ]
+		},
+		"properties": {
+			"id": 17,
+			"description": "Helsinki",
+			"created_at": "2015-05-26T09:28:46Z",
+			"updated_at": "2015-05-26T09:29:14Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 14.41666, 50.08333 ]
+		},
+		"properties": {
+			"id": 31,
+			"description": "Prague",
+			"created_at": "2015-05-26T11:00:25Z",
+			"updated_at": "2015-05-26T11:01:04Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 30.523333, 50.45 ]
+		},
+		"properties": {
+			"id": 18,
+			"description": "Kiev",
+			"created_at": "2015-05-26T09:29:19Z",
+			"updated_at": "2015-05-26T09:29:47Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 19.816, 41.326 ]
+		},
+		"properties": {
+			"id": 42,
+			"description": "Tirana",
+			"created_at": "2015-05-26T11:06:36Z",
+			"updated_at": "2015-05-26T11:07:02Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ -9.139444, 38.713889 ]
+		},
+		"properties": {
+			"id": 19,
+			"description": "Lisbon",
+			"created_at": "2015-05-26T09:29:54Z",
+			"updated_at": "2015-05-26T09:30:19Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ -21.9333, 64.1333 ]
+		},
+		"properties": {
+			"id": 32,
+			"description": "Reykjavík",
+			"created_at": "2015-05-26T11:01:15Z",
+			"updated_at": "2015-05-26T11:01:45Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 14.508333, 46.05555 ]
+		},
+		"properties": {
+			"id": 20,
+			"description": "Ljubljana",
+			"created_at": "2015-05-26T09:30:23Z",
+			"updated_at": "2015-05-26T09:30:54Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ -0.1275, 51.507222 ]
+		},
+		"properties": {
+			"id": 21,
+			"description": "London",
+			"created_at": "2015-05-26T09:31:05Z",
+			"updated_at": "2015-05-26T09:31:40Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 9.521, 47.141 ]
+		},
+		"properties": {
+			"id": 43,
+			"description": "Vaduz",
+			"created_at": "2015-05-26T11:07:07Z",
+			"updated_at": "2015-05-26T11:07:34Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 24.106389, 56.948888 ]
+		},
+		"properties": {
+			"id": 33,
+			"description": "Riga",
+			"created_at": "2015-05-26T11:01:49Z",
+			"updated_at": "2015-05-26T11:02:15Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 15.98333, 45.81666 ]
+		},
+		"properties": {
+			"id": 49,
+			"description": "Zagreb",
+			"created_at": "2015-05-26T11:16:18Z",
+			"updated_at": "2015-05-26T11:16:40Z",
+			"marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 12.5, 41.9 ]
+		},
+		"properties": {
+			"id": 34,
+			"description": "Rome",
+			"created_at": "2015-05-26T11:02:19Z",
+			"updated_at": "2015-05-26T11:02:42Z","marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 14.5125, 35.89777 ]
+		},
+		"properties": {
+			"id": 44,
+			"description": "Valletta",
+			"created_at": "2015-05-26T11:07:39Z",
+			"updated_at": "2015-05-26T11:08:12Z","marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 12.4473, 43.9346 ]
+		},
+		"properties": {
+			"id": 35,
+			"description": "San Marino",
+			"created_at": "2015-05-26T11:02:45Z",
+			"updated_at": "2015-05-26T11:03:10Z","marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 18.41666, 43.8666 ]
+		},
+		"properties": {
+			"id": 36,
+			"description": "Sarajevo",
+			"created_at": "2015-05-26T11:03:16Z",
+			"updated_at": "2015-05-26T11:03:43Z","marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 21.166666, 42.6666 ]
+		},
+		"properties": {
+			"id": 50,
+			"description": "Pristina",
+			"created_at": "2015-05-26T11:17:53Z",
+			"updated_at": "2015-05-26T11:18:13Z","marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [ 16.36666, 48.2 ]
+		},
+		"properties": {
+			"id": 45,
+			"description": "Vienna",
+			"created_at": "2015-05-26T11:08:24Z",
+			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
+		}
+	}
+]

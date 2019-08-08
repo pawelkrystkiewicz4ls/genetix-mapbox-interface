@@ -36,8 +36,7 @@
 			"id": 1,
 			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
 			"marker-color": "#3544FE",
-			"marker-size": "medium",
-			"marker-symbol": "1"
+			"marker-size": "medium"
 		}
 	},
 	{
@@ -47,8 +46,7 @@
 			"id": 1,
 			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
 			"marker-color": "#3544FE",
-			"marker-size": "medium",
-			"marker-symbol": "2"
+			"marker-size": "medium"
 		}
 	},
 	{
@@ -58,8 +56,7 @@
 			"id": 1,
 			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
 			"marker-color": "#3544FE",
-			"marker-size": "medium",
-			"marker-symbol": "3"
+			"marker-size": "medium"
 		}
 	},
 	{
@@ -69,8 +66,7 @@
 			"id": 1,
 			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
 			"marker-color": "#3544FE",
-			"marker-size": "medium",
-			"marker-symbol": "4"
+			"marker-size": "medium"
 		}
 	},
 	{
@@ -80,8 +76,7 @@
 			"id": 1,
 			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
 			"marker-color": "#3544FE",
-			"marker-size": "medium",
-			"marker-symbol": "5"
+			"marker-size": "medium"
 		}
 	}
 ]
