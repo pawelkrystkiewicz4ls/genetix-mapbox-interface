@@ -16,11 +16,15 @@ body {
 	padding: 0;
 }
 
-#map {
+#map  {
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	width: 100%;
+}
+#canvas{
+	height:100vh;
+	width: 100vw;
 }
 /* whole DIV wrapping content of popup */
 .genetix-popup {
@@ -59,18 +63,77 @@ body {
 .home-button:hover {
 	background-color: rgb(247, 244, 244);
 }
+.clear-button {
+	position: absolute;
+	border: 2px solid rgba(0, 0, 0, .35);
+	border-radius: 3px;
+	box-shadow: none;
+	background-attachment: fixed;
+	background-position: center;
+	background-color: #fff;
+	display: block;
+	right: 10px;
+	top: 103px;
+	width: 26px;
+	height: 26px;
+}
+.clear-button:hover {
+	background-color: rgb(247, 244, 244);
+}
 .my-div-icon {
 	height: 0px;
 	width: 0px;
 }
+pre.ui-coordinates {
+  background:rgba(0,0,0,0.5);
+  position:absolute;
+  bottom:60px;
+  left:10px;
+  padding:5px 10px;
+  color:#fff;
+  font-size:11px;
+  line-height:18px;
+  border-radius:3px;
+  max-height:240px;
+	min-height:25px;
+  overflow:auto;
+  width:100px;
+  }
+pre.box {
+  background:rgba(0,0,0,0.5);
+  position:absolute;
+  top:10px;
+  left:10px;
+  padding:5px 10px;
+  color:#fff;
+  font-size:11px;
+  line-height:18px;
+  border-radius:3px;
+  max-height:240px;
+	min-height:25px;
+	min-width: 300px;
+  }
+
+	.boxdraw {
+		pointer-events: none;
+background: rgba(56,135,190,0.1);
+border: 2px solid #3887be;
+position: absolute;
+top: 0;
+left: 0;
+width: 0;
+height: 0;
+}
 </style>
 </head>
-<body>
-  <div id='map'></div>
-
-  <!-- <div class="home-button" onclick="getViewBounds()"> -->
+	<body>
+		<div id='map'></div>
+		<pre id='coordinates' class='ui-coordinates'></pre>
+		<pre id='box' class='box'></pre>
+		<div class="boxdraw" id='boxdraw'></div>
 <svg  class="home-button"  onclick="getViewBounds()" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="expand" class="svg-inline--fa fa-expand fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path></svg>
-  <!-- </div> -->
+<svg class="clear-button"  onclick="clearSelection()" aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg>
+
 <script type="text/javascript">
 const yellow = '#E3B505';
 const blue = '#2677BD';
@@ -96,9 +159,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 const map = L.mapbox
-	.map('map', null, { zoomControl: false })
+	.map('map', null, { zoomControl: false, })
 	.setView([ 0, 0 ], 3)
-	.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+	.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
+	// .dragPan.disable();	// Disable default drag zooming when the shift key is held down.
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 L.control.scale().addTo(map);
@@ -115,10 +179,18 @@ const initiateClusterGroup = () =>
 			fillOpacity: 0.5
 		}
 	});
-
+const initiateSelectionBox=(start, end)=>new L.LatLngBounds(start, end)
+const initiateSelectionStart=()=>new Array(2)
+const initMouseStart=()=>({x:null,y:null})
 let markersLayer = initiateMarkersLayer();
 let routeLayer = initiateRouteLayer();
 let clusterGroup = initiateClusterGroup();
+let selectionBox=initiateSelectionBox();
+let selectedMarkers=new Array()
+let tempSelectedMarkers=new Array()
+let start=initiateSelectionStart()
+let startMouse=initMouseStart()
+// let boxdraw=document.getElementById('boxdraw')
 //RESET MAP VIEW 0,0
 const resetView = () => {
 	map.setView([ 0, 0 ], 3);
@@ -360,8 +432,9 @@ switch (true) {
 		}
 	})
 	break;
-}
-}
+	}
+};
+
 const removeAndRestartLayer = () => {
 	map.removeLayer(routeLayer);
 	map.removeLayer(markersLayer);
@@ -375,6 +448,135 @@ const removeAndRestartLayer = () => {
 };
 
 
+const onMouseUp=(e)=> {
+// Capture xy coordinates
+
+let tempEnd=[e.latlng.lng,e.latlng.lat]
+selectionBox=initiateSelectionBox(start, tempEnd)
+endSelection();
+
+}
+
+const onKeyDown=(e)=> {
+// If the ESC key is pressed
+if (e.keyCode === 27) endSelection();
+}
+
+
+const mouseDown=(e)=> {
+// Continue the rest of the function if the shiftkey is pressed.
+
+let isPressedWithShift=!(e.originalEvent.shiftKey && e.originalEvent.button === 0)
+
+if (isPressedWithShift) return;
+map.boxZoom.disable()
+
+start=initiateSelectionStart()
+start=[e.latlng.lat,e.latlng.lng]
+startMouse={x:e.originalEvent.clientX, y:e.originalEvent.clientY}
+
+selectionBox=initiateSelectionBox(start, start)
+
+// Call functions for the following events
+map.on('mousemove', onMouseMove);
+map.on('mouseup', onMouseUp);
+map.on('keydown', onKeyDown);
+// Capture the first xy coordinates
+
+}
+
+
+
+function endSelection() {
+mouseStart=initMouseStart()
+// Remove these events now that endSelection has been called.
+map.off('mousemove', onMouseMove);
+map.off('keydown', onKeyDown);
+map.off('mouseup', onMouseUp);
+
+if (boxdraw) {
+boxdraw.style.top = 0;
+boxdraw.style.left = 0 ;
+boxdraw.style.width = 0;
+boxdraw.style.height = 0;
+}
+
+		if (selectedMarkers.length >= 100) {
+			console.log(`Select a smaller number of features, currently: ${selectedMarkers.length}`);
+		}
+
+		// tempSelectedMarkers=selectedMarkers;
+		// selectedMarkers=new Array();
+}
+
+
+const onMouseMove = (e) => {
+// Capture the ongoing xy coordinates
+
+let tempEnd=[e.latlng.lat,e.latlng.lng]
+
+selectionBox=initiateSelectionBox(start, tempEnd)
+
+document.getElementById('box').innerHTML = `SW: ${selectionBox.getSouthWest()}\nNE: ${selectionBox.getNorthEast()}`;
+
+let current= {x:e.originalEvent.clientX,y:e.originalEvent.clientY}
+
+let minX = Math.min(startMouse.x, current.x),
+maxX = Math.max(startMouse.x, current.x),
+minY = Math.min(startMouse.y, current.y),
+maxY = Math.max(startMouse.y, current.y);
+
+boxdraw.style.top=minY+'px';
+boxdraw.style.left=minX+'px';
+boxdraw.style.width = maxX - minX  + 'px';
+boxdraw.style.height = maxY - minY  + 'px';
+
+markersLayer.eachLayer((marker) => {
+	let { id } = marker.feature.properties;
+	switch (true) {
+		case selectionBox.contains(marker.getLatLng()):
+			marker.setIcon(L.mapbox.marker.icon({ 'marker-color': yellow }));
+
+			switch (true) {
+				case !selectedMarkers.includes(id):
+					selectedMarkers.push(id);
+					break;
+				case selectedMarkers.includes(id):
+					break;
+			}
+			break;
+		case !selectionBox.contains(marker.getLatLng()) && selectedMarkers.includes(id):
+			selectedMarkers.splice(selectedMarkers.indexOf(id), 1);
+			marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
+			break;
+	}
+});
+
+
+    // Display a list of markers.
+    document.getElementById('coordinates').innerHTML = selectedMarkers.join('\n');
+};
+
+const clearSelection=()=>{
+		//empty all selected markers
+	  selectedMarkers=new Array()
+
+		//restore default styling to markers
+		markersLayer.eachLayer((marker) => {
+			marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
+		})
+
+    document.getElementById('coordinates').innerHTML = selectedMarkers.join('\n');
+
+}
+
+const getSelectedMarkers=()=>{
+	return selectedMarkers
+}
+
+map.on('mousedown',mouseDown)
+
 </script>
+
 </body>
 </html>
