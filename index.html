@@ -464,25 +464,24 @@ if (e.keyCode === 27) endSelection();
 
 
 const mouseDown=(e)=> {
-// Continue the rest of the function if the shiftkey is pressed.
 
 let isPressedWithShift=!(e.originalEvent.shiftKey && e.originalEvent.button === 0)
-
+// Continue the rest of the function if the shiftkey is pressed.
 if (isPressedWithShift) return;
 map.boxZoom.disable()
 
+
 start=initiateSelectionStart()
+
 start=[e.latlng.lat,e.latlng.lng]
 startMouse={x:e.originalEvent.clientX, y:e.originalEvent.clientY}
 
+//initiate empty selection geobox
 selectionBox=initiateSelectionBox(start, start)
 
-// Call functions for the following events
 map.on('mousemove', onMouseMove);
 map.on('mouseup', onMouseUp);
 map.on('keydown', onKeyDown);
-// Capture the first xy coordinates
-
 }
 
 
@@ -535,7 +534,7 @@ markersLayer.eachLayer((marker) => {
 	let { id } = marker.feature.properties;
 	switch (true) {
 		case selectionBox.contains(marker.getLatLng()):
-			marker.setIcon(L.mapbox.marker.icon({ 'marker-color': yellow }));
+			marker.setIcon(L.mapbox.marker.icon({ ...marker.feature.properties,'marker-color': yellow }));
 
 			switch (true) {
 				case !selectedMarkers.includes(id):
