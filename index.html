@@ -503,12 +503,10 @@ const onMouseMove = (e) => {
 // Capture the ongoing xy coordinates
 
 let tempEnd=[e.latlng.lat,e.latlng.lng]
-
 selectionBox=initiateSelectionBox(start, tempEnd)
 
-if(!PROD){document.getElementById('box').innerHTML = `SW: ${selectionBox.getSouthWest()}\nNE: ${selectionBox.getNorthEast()}`;}
-
 let current= {x:e.originalEvent.clientX,y:e.originalEvent.clientY}
+console.log(current)
 
 let minX = Math.min(startMouse.x, current.x),
 maxX = Math.max(startMouse.x, current.x),
@@ -520,17 +518,21 @@ boxdraw.style.left=minX+'px';
 boxdraw.style.width = maxX - minX  + 'px';
 boxdraw.style.height = maxY - minY  + 'px';
 
+if(markersLayer.lenght>0){
 markersLayer.eachLayer((marker) => {
 	let { id } = marker.feature.properties;
 	switch (true) {
-		case selectionBox.contains(marker.getLatLng()):
-			marker.setIcon(L.mapbox.marker.icon({ ...marker.feature.properties,'marker-color': yellow,'marker-size':'large' }));
+		case !!selectionBox.contains(marker.getLatLng()):
+			marker.setIcon(L.mapbox.marker.icon({
+				'markers-symbol':marker.feature.properties.symbol,
+				'marker-color': yellow,
+				'marker-size':'large' }));
 
 			switch (true) {
 				case !selectedMarkers.includes(id):
 					selectedMarkers.push(id);
 					break;
-				case selectedMarkers.includes(id):
+				case !!selectedMarkers.includes(id):
 					break;
 			}
 			break;
@@ -540,10 +542,7 @@ markersLayer.eachLayer((marker) => {
 			break;
 	}
 });
-
-
-    // Display a list of markers.
-    if(!PROD){ document.getElementById('coordinates').innerHTML = selectedMarkers.join('\n');}
+}
 };
 
 const clearSelection=()=>{
