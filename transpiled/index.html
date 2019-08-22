@@ -611,7 +611,7 @@ var onMouseMove = function onMouseMove(e) {
       case !!selectionBox.contains(marker.getLatLng()):
         marker.setIcon(
           L.mapbox.marker.icon({
-            ...marker.feature.properties,
+            "marker-symbol":marker.feature.properties["marker-symbol"],
             "marker-color": yellow,
             "marker-size": "large"
           })
