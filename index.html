@@ -123,6 +123,7 @@ height: 0;
 <!-- <svg  aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg> -->
 <svg class="clear-button"  onclick="clearSelection()"  enable-background="new 0 0 144.083 144" height="144px" id="Location_x5F_Error" version="1.1" viewBox="0 0 144.083 144" width="144.083px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M72.041,21.832c-19.075,0-34.539,15.464-34.539,34.539c0,18.992,34.539,55.379,34.539,65.797  c0-10.418,34.54-46.805,34.54-65.797C106.581,37.296,91.116,21.832,72.041,21.832z M72.041,75.363  c-10.495,0-19.004-8.509-19.004-19.004c0-10.496,8.509-19.004,19.004-19.004c10.497,0,19.004,8.508,19.004,19.004  C91.045,66.854,82.538,75.363,72.041,75.363z"/><polygon points="79.243,44.916 72.042,52.117 64.84,44.916 60.598,49.159 67.799,56.359 60.599,63.559 64.841,67.802 72.042,60.602   79.243,67.802 83.485,63.559 76.285,56.359 83.485,49.159 "/></svg>
 <script type="text/javascript">
+"use strict";
 const yellow = '#E3B505';
 const blue = '#2677BD';
 const mapboxBlue = '#3544FE';
@@ -194,7 +195,7 @@ const addGeoJSONMarkers = (features = null) => {
 		markersLayer.setGeoJSON({ type: 'FeatureCollection', features });
 
 		// fit to bounds
-		map.fitBounds(markersLayer.getBounds());
+		// map.fitBounds(markersLayer.getBounds());
 
 		markersLayer.eachLayer((layer) => {
 			layer.bindPopup(layer.feature.properties.description, { closeButton: false });
@@ -217,6 +218,7 @@ const addGeoJSONMarkers = (features = null) => {
 		/**MARKER EVENTS END */
 		map.addLayer(clusterGroup);
 	}
+	getViewBounds();
 };
 
 const addGeoJSONRoute = (features = null) => {
@@ -225,8 +227,7 @@ const addGeoJSONRoute = (features = null) => {
 	if (!!features) {
 		routeLayer.setGeoJSON({ type: 'FeatureCollection', features });
 
-		// fit to bounds
-		map.fitBounds(routeLayer.getBounds());
+		// map.fitBounds(routeLayer.getBounds());
 
 		routeLayer.eachLayer((layer) => {
 			if (layer.feature.geometry.type === 'Point') {
@@ -271,6 +272,7 @@ const addGeoJSONRoute = (features = null) => {
 		});
 
 		map.addLayer(routeLayer);
+	getViewBounds();
 	}
 };
 
@@ -278,6 +280,7 @@ const addGeoJSONRoute = (features = null) => {
 
 const addGeoJSONRouteAndMarkers = (route = null, markers = null) => {
 	removeAndRestartLayer();
+
 	switch (true) {
 		case !!route:
 			routeLayer.setGeoJSON({ type: 'FeatureCollection', features: route });
@@ -443,7 +446,6 @@ const onMouseUp=(e)=> {
 let tempEnd=[e.latlng.lng,e.latlng.lat]
 selectionBox=initiateSelectionBox(start, tempEnd)
 endSelection();
-
 }
 
 const onKeyDown=(e)=> {
@@ -475,23 +477,23 @@ map.on('keydown', onKeyDown);
 
 
 
-function endSelection() {
-mouseStart=initMouseStart()
-// Remove these events now that endSelection has been called.
-map.off('mousemove', onMouseMove);
-map.off('keydown', onKeyDown);
-map.off('mouseup', onMouseUp);
+const endSelection=()=> {
+	startMouse=initMouseStart()
+	// Remove these events now that endSelection has been called.
+	map.off('mousemove', onMouseMove);
+	map.off('keydown', onKeyDown);
+	map.off('mouseup', onMouseUp);
 
-if (boxdraw) {
-boxdraw.style.top = 0;
-boxdraw.style.left = 0 ;
-boxdraw.style.width = 0;
-boxdraw.style.height = 0;
-}
+	if (boxdraw) {
+		boxdraw.style.top = 0;
+		boxdraw.style.left = 0 ;
+		boxdraw.style.width = 0;
+		boxdraw.style.height = 0;
+	}
 
-		if (selectedMarkers.length >= 100) {
-			console.log(`Select a smaller number of features, currently: ${selectedMarkers.length}`);
-		}
+		// if (selectedMarkers.length >= 100) {
+		// 	console.log(`Select a smaller number of features, currently: ${selectedMarkers.length}`);
+		// }
 
 		// tempSelectedMarkers=selectedMarkers;
 		// selectedMarkers=new Array();
@@ -506,7 +508,6 @@ let tempEnd=[e.latlng.lat,e.latlng.lng]
 selectionBox=initiateSelectionBox(start, tempEnd)
 
 let current= {x:e.originalEvent.clientX,y:e.originalEvent.clientY}
-console.log(current)
 
 let minX = Math.min(startMouse.x, current.x),
 maxX = Math.max(startMouse.x, current.x),
@@ -518,31 +519,31 @@ boxdraw.style.left=minX+'px';
 boxdraw.style.width = maxX - minX  + 'px';
 boxdraw.style.height = maxY - minY  + 'px';
 
-if(markersLayer.lenght>0){
-markersLayer.eachLayer((marker) => {
-	let { id } = marker.feature.properties;
-	switch (true) {
-		case !!selectionBox.contains(marker.getLatLng()):
-			marker.setIcon(L.mapbox.marker.icon({
-				'markers-symbol':marker.feature.properties.symbol,
-				'marker-color': yellow,
-				'marker-size':'large' }));
+	markersLayer.eachLayer((marker) => {
+		let { id } = marker.feature.properties;
 
-			switch (true) {
-				case !selectedMarkers.includes(id):
-					selectedMarkers.push(id);
-					break;
-				case !!selectedMarkers.includes(id):
-					break;
-			}
-			break;
-		case !selectionBox.contains(marker.getLatLng()) && selectedMarkers.includes(id):
-			selectedMarkers.splice(selectedMarkers.indexOf(id), 1);
-			marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
-			break;
-	}
-});
-}
+		switch (true) {
+			case !!selectionBox.contains(marker.getLatLng()):
+				marker.setIcon(L.mapbox.marker.icon({
+					...marker.feature.properties,
+					'marker-color': yellow,
+					'marker-size':'large' }));
+
+				switch (true) {
+					case !selectedMarkers.includes(id):
+						selectedMarkers.push(id);
+						break;
+					case !!selectedMarkers.includes(id):
+						break;
+				}
+				break;
+			case !selectionBox.contains(marker.getLatLng()) && selectedMarkers.includes(id):
+				selectedMarkers.splice(selectedMarkers.indexOf(id), 1);
+				marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
+				break;
+		}
+	});
+
 };
 
 const clearSelection=()=>{

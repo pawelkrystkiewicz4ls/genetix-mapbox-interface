@@ -125,60 +125,88 @@ height: 0;
 <script type="text/javascript">
 "use strict";
 
-function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return !!right[Symbol.hasInstance](left); } else { return left instanceof right; } }
+function _instanceof(left, right) {
+  if (
+    right != null &&
+    typeof Symbol !== "undefined" &&
+    right[Symbol.hasInstance]
+  ) {
+    return !!right[Symbol.hasInstance](left);
+  } else {
+    return left instanceof right;
+  }
+}
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj &&
+        typeof Symbol === "function" &&
+        obj.constructor === Symbol &&
+        obj !== Symbol.prototype
+        ? "symbol"
+        : typeof obj;
+    };
+  }
+  return _typeof(obj);
+}
 
-var yellow = '#E3B505';
-var blue = '#2677BD';
-var mapboxBlue = '#3544FE';
-var green = '#2ecc71';
-var orange = '#e67e22';
-var purple = '#D27AFF';
+var yellow = "#E3B505";
+var blue = "#2677BD";
+var mapboxBlue = "#3544FE";
+var green = "#2ecc71";
+var orange = "#e67e22";
+var purple = "#D27AFF";
 var ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK = true;
 var PROD = true;
-L.mapbox.accessToken = 'pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w'; //GET CURRENT VIEW ON MIDDLE CLICK
+L.mapbox.accessToken =
+  "pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"; //GET CURRENT VIEW ON MIDDLE CLICK
 
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener("DOMContentLoaded", function(event) {
   if (ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK) {
-    var mapDIV = document.querySelector('#map');
-    mapDIV.addEventListener('mouseup', function (e) {
-      if (_typeof(e) === 'object' && e.button === 1) {
+    var mapDIV = document.querySelector("#map");
+    mapDIV.addEventListener("mouseup", function(e) {
+      if (_typeof(e) === "object" && e.button === 1) {
         getViewBounds();
       }
     });
   }
 });
-var map = L.mapbox.map('map', null, {
-  zoomControl: false
-}).setView([0, 0], 3).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11')); // .dragPan.disable();	// Disable default drag zooming when the shift key is held down.
+var map = L.mapbox
+  .map("map", null, {
+    zoomControl: false
+  })
+  .setView([0, 0], 3)
+  .addLayer(L.mapbox.styleLayer("mapbox://styles/mapbox/streets-v11")); // .dragPan.disable();	// Disable default drag zooming when the shift key is held down.
 
 new L.Control.Zoom({
-  position: 'topright'
+  position: "topright"
 }).addTo(map);
 L.control.scale().addTo(map); // let markersLayer = L.mapbox.featureLayer({ type: 'FeatureCollection', features: [] }); //.addTo(map);
 
 var initiateMarkersLayer = function initiateMarkersLayer() {
   return L.mapbox.featureLayer({
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: []
   });
 }; //.addTo(map);
-
 
 var initiateRouteLayer = function initiateRouteLayer() {
   return L.mapbox.featureLayer({
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: []
   });
 }; //.addTo(map);
-
 
 var initiateClusterGroup = function initiateClusterGroup() {
   return new L.MarkerClusterGroup({
     polygonOptions: {
-      fillColor: '#3887be',
-      color: '#3887be',
+      fillColor: "#3887be",
+      color: "#3887be",
       weight: 2,
       opacity: 1,
       fillOpacity: 0.5
@@ -216,64 +244,75 @@ var resetView = function resetView() {
 };
 
 var addGeoJSONMarkers = function addGeoJSONMarkers() {
-  var features = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var features =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   removeAndRestartLayer();
 
   if (!!features) {
     markersLayer = initiateMarkersLayer();
     clusterGroup = initiateClusterGroup();
     markersLayer.setGeoJSON({
-      type: 'FeatureCollection',
+      type: "FeatureCollection",
       features: features
     }); // fit to bounds
+    // map.fitBounds(markersLayer.getBounds());
 
-    map.fitBounds(markersLayer.getBounds());
-    markersLayer.eachLayer(function (layer) {
+    markersLayer.eachLayer(function(layer) {
       layer.bindPopup(layer.feature.properties.description, {
         closeButton: false
       });
     });
-    markersLayer.eachLayer(function (layer) {
+    markersLayer.eachLayer(function(layer) {
       clusterGroup.addLayer(layer);
     });
     /**MARKERS EVENTS START */
 
-    markersLayer.on('mouseover', function (e) {
+    markersLayer.on("mouseover", function(e) {
       e.layer.openPopup();
     });
-    markersLayer.on('mouseout', function (e) {
+    markersLayer.on("mouseout", function(e) {
       e.layer.closePopup();
     });
-    markersLayer.on('click', function (e) {
+    markersLayer.on("click", function(e) {
       map.panTo(e.layer.getLatLng());
     });
     /**MARKER EVENTS END */
 
     map.addLayer(clusterGroup);
   }
+
+  getViewBounds();
 };
 
 var addGeoJSONRoute = function addGeoJSONRoute() {
-  var features = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var features =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   removeAndRestartLayer();
 
   if (!!features) {
     routeLayer.setGeoJSON({
-      type: 'FeatureCollection',
+      type: "FeatureCollection",
       features: features
-    }); // fit to bounds
+    }); // map.fitBounds(routeLayer.getBounds());
 
-    map.fitBounds(routeLayer.getBounds());
-    routeLayer.eachLayer(function (layer) {
-      if (layer.feature.geometry.type === 'Point') {
+    routeLayer.eachLayer(function(layer) {
+      if (layer.feature.geometry.type === "Point") {
         layer.bindPopup(layer.feature.properties.description, {
           closeButton: false
         }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
 
-        var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: ".concat(layer.feature.properties['marker-color'], ";\n\t\t\t\t\tcolor: ").concat(layer.feature.properties['marker-color'], ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;");
+        var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
+          .concat(
+            layer.feature.properties["marker-color"],
+            ";\n\t\t\t\t\tcolor: "
+          )
+          .concat(
+            layer.feature.properties["marker-color"],
+            ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
+          );
         var newIcon = new L.divIcon({
-          className: 'my-div-icon',
-          html: "<span style=\"".concat(markerHtmlStyles, "\" />")
+          className: "my-div-icon",
+          html: '<span style="'.concat(markerHtmlStyles, '" />')
         });
         layer.setIcon(newIcon);
       }
@@ -284,49 +323,59 @@ var addGeoJSONRoute = function addGeoJSONRoute() {
         });
       }
     });
-    routeLayer.on('mouseover', function (e) {
-      if (e.layer.feature.geometry.type === 'Point') {
+    routeLayer.on("mouseover", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
         e.layer.openPopup();
       }
     });
-    routeLayer.on('mouseout', function (e) {
-      if (e.layer.feature.geometry.type === 'Point') {
+    routeLayer.on("mouseout", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
         e.layer.closePopup();
       }
     });
-    routeLayer.on('click', function (e) {
-      if (e.layer.feature.geometry.type === 'Point') {
+    routeLayer.on("click", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
         map.panTo(e.layer.getLatLng());
       }
     });
     map.addLayer(routeLayer);
+    getViewBounds();
   }
 };
 /**ADD ROUTE AND MARKERS IN THE SAME TIME */
 
-
 var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
-  var route = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  var markers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var route =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var markers =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   removeAndRestartLayer();
 
   switch (true) {
     case !!route:
       routeLayer.setGeoJSON({
-        type: 'FeatureCollection',
+        type: "FeatureCollection",
         features: route
       }); // fit to bounds
 
-      routeLayer.eachLayer(function (layer) {
-        if (layer.feature.geometry.type === 'Point') {
+      routeLayer.eachLayer(function(layer) {
+        if (layer.feature.geometry.type === "Point") {
           layer.bindPopup(layer.feature.properties.description, {
             closeButton: false
           }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
 
-          var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: ".concat(layer.feature.properties['marker-color'], ";\n\t\t\t\t\tcolor: ").concat(layer.feature.properties['marker-color'], ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;");
+          var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
+            .concat(
+              layer.feature.properties["marker-color"],
+              ";\n\t\t\t\t\tcolor: "
+            )
+            .concat(
+              layer.feature.properties["marker-color"],
+              ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
+            );
           var newIcon = new L.divIcon({
-            className: 'my-div-icon',
-            html: "<span style=\"".concat(markerHtmlStyles, "\" />")
+            className: "my-div-icon",
+            html: '<span style="'.concat(markerHtmlStyles, '" />')
           });
           layer.setIcon(newIcon);
         }
@@ -337,18 +386,18 @@ var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
           });
         }
       });
-      routeLayer.on('mouseover', function (e) {
-        if (e.layer.feature.geometry.type === 'Point') {
+      routeLayer.on("mouseover", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
           e.layer.openPopup();
         }
       });
-      routeLayer.on('mouseout', function (e) {
-        if (e.layer.feature.geometry.type === 'Point') {
+      routeLayer.on("mouseout", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
           e.layer.closePopup();
         }
       });
-      routeLayer.on('click', function (e) {
-        if (e.layer.feature.geometry.type === 'Point') {
+      routeLayer.on("click", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
           map.panTo(e.layer.getLatLng());
         }
       });
@@ -358,27 +407,27 @@ var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
       markersLayer = initiateMarkersLayer();
       clusterGroup = initiateClusterGroup();
       markersLayer.setGeoJSON({
-        type: 'FeatureCollection',
+        type: "FeatureCollection",
         features: markers
       }); // fit to bounds
 
-      markersLayer.eachLayer(function (layer) {
+      markersLayer.eachLayer(function(layer) {
         layer.bindPopup(layer.feature.properties.description, {
           closeButton: false
         });
       });
-      markersLayer.eachLayer(function (layer) {
+      markersLayer.eachLayer(function(layer) {
         clusterGroup.addLayer(layer);
       });
       /**MARKERS EVENTS START */
 
-      markersLayer.on('mouseover', function (e) {
+      markersLayer.on("mouseover", function(e) {
         e.layer.openPopup();
       });
-      markersLayer.on('mouseout', function (e) {
+      markersLayer.on("mouseout", function(e) {
         e.layer.closePopup();
       });
-      markersLayer.on('click', function (e) {
+      markersLayer.on("click", function(e) {
         map.panTo(e.layer.getLatLng());
       });
       /**MARKER EVENTS END */
@@ -390,10 +439,11 @@ var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
   getViewBounds();
 }; //SET VIEW TO ACTIVE MARKERS / ROUTE /
 
-
 var getViewBounds = function getViewBounds() {
-  var routeVisible = routeLayer._geojson.features && routeLayer._geojson.features.length > 0;
-  var markersVisible = markersLayer._geojson.features && markersLayer._geojson.features.length > 0;
+  var routeVisible =
+    routeLayer._geojson.features && routeLayer._geojson.features.length > 0;
+  var markersVisible =
+    markersLayer._geojson.features && markersLayer._geojson.features.length > 0;
 
   switch (true) {
     case routeVisible && markersVisible:
@@ -414,28 +464,38 @@ var getViewBounds = function getViewBounds() {
     // 	break;
 
     default:
-      map.setView({
-        lon: 0,
-        lat: 0
-      }, 3);
+      map.setView(
+        {
+          lon: 0,
+          lat: 0
+        },
+        3
+      );
       break;
   }
 };
 
 var getViewBoundsById = function getViewBoundsById() {
-  var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  var zoom = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
-  var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'marker';
+  var id =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var zoom =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
+  var type =
+    arguments.length > 2 && arguments[2] !== undefined
+      ? arguments[2]
+      : "marker";
 
   switch (true) {
     case id && type === "marker":
-      markersLayer.eachLayer(function (layer) {
+      markersLayer.eachLayer(function(layer) {
         switch (true) {
-          case _instanceof(layer, L.Polyline) && layer.feature.properties.id === id:
+          case _instanceof(layer, L.Polyline) &&
+            layer.feature.properties.id === id:
             map.fitBounds(layer.getBounds());
             break;
 
-          case _instanceof(layer, L.Marker) && layer.feature.properties.id === id:
+          case _instanceof(layer, L.Marker) &&
+            layer.feature.properties.id === id:
             map.setView(layer.getLatLng(), zoom);
             break;
         }
@@ -443,16 +503,22 @@ var getViewBoundsById = function getViewBoundsById() {
       break;
 
     case id && type === "route":
-      routeLayer.eachLayer(function (layer) {
-        if (_instanceof(layer, L.Polyline) && layer.feature.properties.id === id) {
+      routeLayer.eachLayer(function(layer) {
+        if (
+          _instanceof(layer, L.Polyline) &&
+          layer.feature.properties.id === id
+        ) {
           map.fitBounds(layer.getBounds());
         }
       });
       break;
 
     case id && type === "point":
-      routeLayer.eachLayer(function (layer) {
-        if (_instanceof(layer, L.Marker) && layer.feature.properties.id === id) {
+      routeLayer.eachLayer(function(layer) {
+        if (
+          _instanceof(layer, L.Marker) &&
+          layer.feature.properties.id === id
+        ) {
           map.setView(layer.getLatLng(), zoom);
         }
       });
@@ -483,7 +549,9 @@ var onKeyDown = function onKeyDown(e) {
 };
 
 var mouseDown = function mouseDown(e) {
-  var isPressedWithShift = !(e.originalEvent.shiftKey && e.originalEvent.button === 0); // Continue the rest of the function if the shiftkey is pressed.
+  var isPressedWithShift = !(
+    e.originalEvent.shiftKey && e.originalEvent.button === 0
+  ); // Continue the rest of the function if the shiftkey is pressed.
 
   if (isPressedWithShift) return;
   map.boxZoom.disable();
@@ -492,36 +560,33 @@ var mouseDown = function mouseDown(e) {
   startMouse = {
     x: e.originalEvent.clientX,
     y: e.originalEvent.clientY //initiate empty selection geobox
-
   };
   selectionBox = initiateSelectionBox(start, start);
-  map.on('mousemove', onMouseMove);
-  map.on('mouseup', onMouseUp);
-  map.on('keydown', onKeyDown);
+  map.on("mousemove", onMouseMove);
+  map.on("mouseup", onMouseUp);
+  map.on("keydown", onKeyDown);
 };
 
-function endSelection() {
-  mouseStart = initMouseStart(); // Remove these events now that endSelection has been called.
+var endSelection = function endSelection() {
+  startMouse = initMouseStart(); // Remove these events now that endSelection has been called.
 
-  map.off('mousemove', onMouseMove);
-  map.off('keydown', onKeyDown);
-  map.off('mouseup', onMouseUp);
+  map.off("mousemove", onMouseMove);
+  map.off("keydown", onKeyDown);
+  map.off("mouseup", onMouseUp);
 
   if (boxdraw) {
     boxdraw.style.top = 0;
     boxdraw.style.left = 0;
     boxdraw.style.width = 0;
     boxdraw.style.height = 0;
-  }
-
-  if (selectedMarkers.length >= 100) {
-    console.log("Select a smaller number of features, currently: ".concat(selectedMarkers.length));
-  } // tempSelectedMarkers=selectedMarkers;
+  } // if (selectedMarkers.length >= 100) {
+  // 	console.log(`Select a smaller number of features, currently: ${selectedMarkers.length}`);
+  // }
+  // tempSelectedMarkers=selectedMarkers;
   // selectedMarkers=new Array();
 
-
   getSelectedMarkers();
-}
+};
 
 var onMouseMove = function onMouseMove(e) {
   // Capture the ongoing xy coordinates
@@ -531,56 +596,58 @@ var onMouseMove = function onMouseMove(e) {
     x: e.originalEvent.clientX,
     y: e.originalEvent.clientY
   };
-  console.log(current);
   var minX = Math.min(startMouse.x, current.x),
-      maxX = Math.max(startMouse.x, current.x),
-      minY = Math.min(startMouse.y, current.y),
-      maxY = Math.max(startMouse.y, current.y);
-  boxdraw.style.top = minY + 'px';
-  boxdraw.style.left = minX + 'px';
-  boxdraw.style.width = maxX - minX + 'px';
-  boxdraw.style.height = maxY - minY + 'px';
+    maxX = Math.max(startMouse.x, current.x),
+    minY = Math.min(startMouse.y, current.y),
+    maxY = Math.max(startMouse.y, current.y);
+  boxdraw.style.top = minY + "px";
+  boxdraw.style.left = minX + "px";
+  boxdraw.style.width = maxX - minX + "px";
+  boxdraw.style.height = maxY - minY + "px";
+  markersLayer.eachLayer(function(marker) {
+    var id = marker.feature.properties.id;
 
-  if (markersLayer.lenght > 0) {
-    markersLayer.eachLayer(function (marker) {
-      var id = marker.feature.properties.id;
+    switch (true) {
+      case !!selectionBox.contains(marker.getLatLng()):
+        marker.setIcon(
+          L.mapbox.marker.icon({
+            ...marker.feature.properties,
+            "marker-color": yellow,
+            "marker-size": "large"
+          })
+        );
 
-      switch (true) {
-        case !!selectionBox.contains(marker.getLatLng()):
-          marker.setIcon(L.mapbox.marker.icon({
-            'markers-symbol': marker.feature.properties.symbol,
-            'marker-color': yellow,
-            'marker-size': 'large'
-          }));
+        switch (true) {
+          case !selectedMarkers.includes(id):
+            selectedMarkers.push(id);
+            break;
 
-          switch (true) {
-            case !selectedMarkers.includes(id):
-              selectedMarkers.push(id);
-              break;
+          case !!selectedMarkers.includes(id):
+            break;
+        }
 
-            case !!selectedMarkers.includes(id):
-              break;
-          }
+        break;
 
-          break;
-
-        case !selectionBox.contains(marker.getLatLng()) && selectedMarkers.includes(id):
-          selectedMarkers.splice(selectedMarkers.indexOf(id), 1);
-          marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
-          break;
-      }
-    });
-  }
+      case !selectionBox.contains(marker.getLatLng()) &&
+        selectedMarkers.includes(id):
+        selectedMarkers.splice(selectedMarkers.indexOf(id), 1);
+        marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
+        break;
+    }
+  });
 };
 
 var clearSelection = function clearSelection() {
   //empty all selected markers
   selectedMarkers = new Array(); //restore default styling to markers
 
-  markersLayer.eachLayer(function (marker) {
+  markersLayer.eachLayer(function(marker) {
     marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
   });
-  if (!PROD) document.getElementById('coordinates').innerHTML = selectedMarkers.join('\n');
+  if (!PROD)
+    document.getElementById("coordinates").innerHTML = selectedMarkers.join(
+      "\n"
+    );
 };
 
 var getSelectedMarkers = function getSelectedMarkers() {
@@ -588,7 +655,8 @@ var getSelectedMarkers = function getSelectedMarkers() {
   return selectedMarkers;
 };
 
-map.on('mousedown', mouseDown);
+map.on("mousedown", mouseDown);
+
 
 </script>
 
