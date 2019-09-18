@@ -13,3 +13,4 @@
 | merge into index.html          |   feature    |  0.6.0  |
 | transpilation into ES5         |    patch     |  0.6.1  |
 | bug fix for strict mode errors |    patch     |  0.6.2  |
+| added hidden input field       |    patch     |  0.6.3  |
