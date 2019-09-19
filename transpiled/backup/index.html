@@ -1,0 +1,671 @@
+<html>
+<head>
+<meta charset=utf-8 />
+  <title>Genetix Map</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+<!-- <link href='index.css' rel='stylesheet' /> -->
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css' rel='stylesheet' />
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css'
+  rel='stylesheet' />
+<style>
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#map  {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+}
+#canvas{
+	height:100vh;
+	width: 100vw;
+}
+/* whole DIV wrapping content of popup */
+.genetix-popup {
+
+}
+/* header of popup contents */
+.genetix-popup--header {
+	color: red;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* highligthing values like weight or volume */
+.genetix-popup--values {
+	color: blue;
+}
+
+/* highlighting delivery dates */
+.genetix-popup--dates {
+	color: purple;
+}
+.home-button {
+	position: absolute;
+	border: 2px solid rgba(0, 0, 0, .35);
+	border-radius: 3px;
+	box-shadow: none;
+	background-attachment: fixed;
+	background-position: center;
+	background-color: #fff;
+	display: block;
+	right: 10px;
+	top: 70px;
+	width: 26px;
+	height: 26px;
+}
+.home-button:hover {
+	background-color: rgb(247, 244, 244);
+}
+.clear-button {
+	position: absolute;
+	border: 2px solid rgba(0, 0, 0, .35);
+	border-radius: 3px;
+	box-shadow: none;
+	background-attachment: fixed;
+	background-position: center;
+	background-color: #fff;
+	display: block;
+	right: 10px;
+	top: 103px;
+	width: 26px;
+	height: 26px;
+}
+.clear-button:hover {
+	background-color: rgb(247, 244, 244);
+}
+.my-div-icon {
+	height: 0px;
+	width: 0px;
+}
+pre.ui-coordinates {
+  background:rgba(0,0,0,0.5);
+  position:absolute;
+  bottom:60px;
+  left:10px;
+  padding:5px 10px;
+  color:#fff;
+  font-size:11px;
+  line-height:18px;
+  border-radius:3px;
+  max-height:240px;
+	min-height:25px;
+  overflow:auto;
+  width:100px;
+  }
+
+	.boxdraw {
+		pointer-events: none;
+background: rgba(56,135,190,0.1);
+border: 2px solid #3887be;
+position: absolute;
+top: 0;
+left: 0;
+width: 0;
+height: 0;
+}
+</style>
+</head>
+	<body>
+		<div id='map'></div>
+		<pre id='box' class='box'></pre>
+    <div class="boxdraw" id='boxdraw'></div>
+    	<input type="hidden" id='selected' value='' />
+<!-- <svg   aria-hidden="true" focusable="false" data-prefix="fas" data-icon="expand" class="svg-inline--fa fa-expand fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path></svg> -->
+<svg class="home-button"  onclick="getViewBounds()" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024">
+  <path d="M391 240.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L200 146.3a8.03 8.03 0 0 0-11.3 0l-42.4 42.3a8.03 8.03 0 0 0 0 11.3L280 333.6l-43.9 43.9a8.01 8.01 0 0 0 4.7 13.6L401 410c5.1.6 9.5-3.7 8.9-8.9L391 240.9zm10.1 373.2L240.8 633c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L146.3 824a8.03 8.03 0 0 0 0 11.3l42.4 42.3c3.1 3.1 8.2 3.1 11.3 0L333.7 744l43.7 43.7A8.01 8.01 0 0 0 391 783l18.9-160.1c.6-5.1-3.7-9.4-8.8-8.8zm221.8-204.2L783.2 391c6.6-.8 9.4-8.9 4.7-13.6L744 333.6 877.7 200c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.3a8.03 8.03 0 0 0-11.3 0L690.3 279.9l-43.7-43.7a8.01 8.01 0 0 0-13.6 4.7L614.1 401c-.6 5.2 3.7 9.5 8.8 8.9zM744 690.4l43.9-43.9a8.01 8.01 0 0 0-4.7-13.6L623 614c-5.1-.6-9.5 3.7-8.9 8.9L633 783.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L824 877.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L744 690.4z"/>
+</svg>
+<!-- <svg  aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg> -->
+<svg class="clear-button"  onclick="clearSelection()"  enable-background="new 0 0 144.083 144" height="144px" id="Location_x5F_Error" version="1.1" viewBox="0 0 144.083 144" width="144.083px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M72.041,21.832c-19.075,0-34.539,15.464-34.539,34.539c0,18.992,34.539,55.379,34.539,65.797  c0-10.418,34.54-46.805,34.54-65.797C106.581,37.296,91.116,21.832,72.041,21.832z M72.041,75.363  c-10.495,0-19.004-8.509-19.004-19.004c0-10.496,8.509-19.004,19.004-19.004c10.497,0,19.004,8.508,19.004,19.004  C91.045,66.854,82.538,75.363,72.041,75.363z"/><polygon points="79.243,44.916 72.042,52.117 64.84,44.916 60.598,49.159 67.799,56.359 60.599,63.559 64.841,67.802 72.042,60.602   79.243,67.802 83.485,63.559 76.285,56.359 83.485,49.159 "/></svg>
+<script type="text/javascript">
+"use strict";
+if(!Array.prototype.includes)
+{
+   Array.prototype.includes = function (elt) { return this.indexOf(elt) !== -1; }
+}
+
+
+function _instanceof(left, right) {
+  if (
+    right != null &&
+    typeof Symbol !== "undefined" &&
+    right[Symbol.hasInstance]
+  ) {
+    return !!right[Symbol.hasInstance](left);
+  } else {
+    return left instanceof right;
+  }
+}
+
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj &&
+        typeof Symbol === "function" &&
+        obj.constructor === Symbol &&
+        obj !== Symbol.prototype
+        ? "symbol"
+        : typeof obj;
+    };
+  }
+  return _typeof(obj);
+}
+
+var yellow = "#E3B505";
+var blue = "#2677BD";
+var mapboxBlue = "#3544FE";
+var green = "#2ecc71";
+var orange = "#e67e22";
+var purple = "#D27AFF";
+var ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK = true;
+var PROD = true;
+L.mapbox.accessToken =
+  "pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"; //GET CURRENT VIEW ON MIDDLE CLICK
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  if (ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK) {
+    var mapDIV = document.querySelector("#map");
+    mapDIV.addEventListener("mouseup", function(e) {
+      if (_typeof(e) === "object" && e.button === 1) {
+        getViewBounds();
+      }
+    });
+  }
+});
+var map = L.mapbox
+  .map("map", null, {
+    zoomControl: false
+  })
+  .setView([0, 0], 3)
+  .addLayer(L.mapbox.styleLayer("mapbox://styles/mapbox/streets-v11")); // .dragPan.disable();	// Disable default drag zooming when the shift key is held down.
+
+new L.Control.Zoom({
+  position: "topright"
+}).addTo(map);
+L.control.scale().addTo(map); // let markersLayer = L.mapbox.featureLayer({ type: 'FeatureCollection', features: [] }); //.addTo(map);
+
+var initiateMarkersLayer = function initiateMarkersLayer() {
+  return L.mapbox.featureLayer({
+    type: "FeatureCollection",
+    features: []
+  });
+}; //.addTo(map);
+
+var initiateRouteLayer = function initiateRouteLayer() {
+  return L.mapbox.featureLayer({
+    type: "FeatureCollection",
+    features: []
+  });
+}; //.addTo(map);
+
+var initiateClusterGroup = function initiateClusterGroup() {
+  return new L.MarkerClusterGroup({
+    polygonOptions: {
+      fillColor: "#3887be",
+      color: "#3887be",
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.5
+    }
+  });
+};
+
+var initiateSelectionBox = function initiateSelectionBox(start, end) {
+  return new L.LatLngBounds(start, end);
+};
+
+var initiateSelectionStart = function initiateSelectionStart() {
+  return new Array(2);
+};
+
+var initMouseStart = function initMouseStart() {
+  return {
+    x: null,
+    y: null
+  };
+};
+
+var markersLayer = initiateMarkersLayer();
+var routeLayer = initiateRouteLayer();
+var clusterGroup = initiateClusterGroup();
+var selectionBox = initiateSelectionBox();
+var selectedMarkers = new Array();
+var tempSelectedMarkers = new Array();
+var start = initiateSelectionStart();
+var startMouse = initMouseStart(); // let boxdraw=document.getElementById('boxdraw')
+//RESET MAP VIEW 0,0
+
+var resetView = function resetView() {
+  map.setView([0, 0], 3);
+};
+
+var addGeoJSONMarkers = function addGeoJSONMarkers() {
+  var features =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  removeAndRestartLayer();
+
+  if (!!features) {
+    markersLayer = initiateMarkersLayer();
+    clusterGroup = initiateClusterGroup();
+    markersLayer.setGeoJSON({
+      type: "FeatureCollection",
+      features: features
+    }); // fit to bounds
+    // map.fitBounds(markersLayer.getBounds());
+
+    markersLayer.eachLayer(function(layer) {
+      layer.bindPopup(layer.feature.properties.description, {
+        closeButton: false
+      });
+    });
+    markersLayer.eachLayer(function(layer) {
+      clusterGroup.addLayer(layer);
+    });
+    /**MARKERS EVENTS START */
+
+    markersLayer.on("mouseover", function(e) {
+      e.layer.openPopup();
+    });
+    markersLayer.on("mouseout", function(e) {
+      e.layer.closePopup();
+    });
+    markersLayer.on("click", function(e) {
+      map.panTo(e.layer.getLatLng());
+    });
+    /**MARKER EVENTS END */
+
+    map.addLayer(clusterGroup);
+  }
+
+  getViewBounds();
+};
+
+var addGeoJSONRoute = function addGeoJSONRoute() {
+  var features =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  removeAndRestartLayer();
+
+  if (!!features) {
+    routeLayer.setGeoJSON({
+      type: "FeatureCollection",
+      features: features
+    }); // map.fitBounds(routeLayer.getBounds());
+
+    routeLayer.eachLayer(function(layer) {
+      if (layer.feature.geometry.type === "Point") {
+        layer.bindPopup(layer.feature.properties.description, {
+          closeButton: false
+        }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
+
+        var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
+          .concat(
+            layer.feature.properties["marker-color"],
+            ";\n\t\t\t\t\tcolor: "
+          )
+          .concat(
+            layer.feature.properties["marker-color"],
+            ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
+          );
+        var newIcon = new L.divIcon({
+          className: "my-div-icon",
+          html: '<span style="'.concat(markerHtmlStyles, '" />')
+        });
+        layer.setIcon(newIcon);
+      }
+
+      if (_instanceof(layer, L.Polyline)) {
+        layer.setStyle({
+          color: layer.feature.properties.color
+        });
+      }
+    });
+    routeLayer.on("mouseover", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
+        e.layer.openPopup();
+      }
+    });
+    routeLayer.on("mouseout", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
+        e.layer.closePopup();
+      }
+    });
+    routeLayer.on("click", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
+        map.panTo(e.layer.getLatLng());
+      }
+    });
+    map.addLayer(routeLayer);
+    getViewBounds();
+  }
+};
+/**ADD ROUTE AND MARKERS IN THE SAME TIME */
+
+var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
+  var route =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var markers =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  removeAndRestartLayer();
+
+  switch (true) {
+    case !!route:
+      routeLayer.setGeoJSON({
+        type: "FeatureCollection",
+        features: route
+      }); // fit to bounds
+
+      routeLayer.eachLayer(function(layer) {
+        if (layer.feature.geometry.type === "Point") {
+          layer.bindPopup(layer.feature.properties.description, {
+            closeButton: false
+          }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
+
+          var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
+            .concat(
+              layer.feature.properties["marker-color"],
+              ";\n\t\t\t\t\tcolor: "
+            )
+            .concat(
+              layer.feature.properties["marker-color"],
+              ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
+            );
+          var newIcon = new L.divIcon({
+            className: "my-div-icon",
+            html: '<span style="'.concat(markerHtmlStyles, '" />')
+          });
+          layer.setIcon(newIcon);
+        }
+
+        if (_instanceof(layer, L.Polyline)) {
+          layer.setStyle({
+            color: layer.feature.properties.color
+          });
+        }
+      });
+      routeLayer.on("mouseover", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
+          e.layer.openPopup();
+        }
+      });
+      routeLayer.on("mouseout", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
+          e.layer.closePopup();
+        }
+      });
+      routeLayer.on("click", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
+          map.panTo(e.layer.getLatLng());
+        }
+      });
+      map.addLayer(routeLayer);
+
+    case !!markers:
+      markersLayer = initiateMarkersLayer();
+      clusterGroup = initiateClusterGroup();
+      markersLayer.setGeoJSON({
+        type: "FeatureCollection",
+        features: markers
+      }); // fit to bounds
+
+      markersLayer.eachLayer(function(layer) {
+        layer.bindPopup(layer.feature.properties.description, {
+          closeButton: false
+        });
+      });
+      markersLayer.eachLayer(function(layer) {
+        clusterGroup.addLayer(layer);
+      });
+      /**MARKERS EVENTS START */
+
+      markersLayer.on("mouseover", function(e) {
+        e.layer.openPopup();
+      });
+      markersLayer.on("mouseout", function(e) {
+        e.layer.closePopup();
+      });
+      markersLayer.on("click", function(e) {
+        map.panTo(e.layer.getLatLng());
+      });
+      /**MARKER EVENTS END */
+
+      map.addLayer(clusterGroup);
+      break;
+  }
+
+  getViewBounds();
+}; //SET VIEW TO ACTIVE MARKERS / ROUTE /
+
+var getViewBounds = function getViewBounds() {
+  var routeVisible =
+    routeLayer._geojson.features && routeLayer._geojson.features.length > 0;
+  var markersVisible =
+    markersLayer._geojson.features && markersLayer._geojson.features.length > 0;
+
+  switch (true) {
+    case routeVisible && markersVisible:
+      var group = new L.featureGroup([routeLayer, markersLayer]);
+      map.fitBounds(group.getBounds()); // map.fitBounds(markersLayer.getBounds());
+
+      break;
+
+    case markersVisible:
+      map.fitBounds(markersLayer.getBounds());
+      break;
+
+    case routeVisible:
+      map.fitBounds(routeLayer.getBounds());
+      break;
+    // case !!userGPS:
+    // 	map.setView(userGPS, 6);
+    // 	break;
+
+    default:
+      map.setView(
+        {
+          lon: 0,
+          lat: 0
+        },
+        3
+      );
+      break;
+  }
+};
+
+var getViewBoundsById = function getViewBoundsById() {
+  var id =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var zoom =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
+  var type =
+    arguments.length > 2 && arguments[2] !== undefined
+      ? arguments[2]
+      : "marker";
+
+  switch (true) {
+    case id && type === "marker":
+      markersLayer.eachLayer(function(layer) {
+        switch (true) {
+          case _instanceof(layer, L.Polyline) &&
+            layer.feature.properties.id === id:
+            map.fitBounds(layer.getBounds());
+            break;
+
+          case _instanceof(layer, L.Marker) &&
+            layer.feature.properties.id === id:
+            map.setView(layer.getLatLng(), zoom);
+            break;
+        }
+      });
+      break;
+
+    case id && type === "route":
+      routeLayer.eachLayer(function(layer) {
+        if (
+          _instanceof(layer, L.Polyline) &&
+          layer.feature.properties.id === id
+        ) {
+          map.fitBounds(layer.getBounds());
+        }
+      });
+      break;
+
+    case id && type === "point":
+      routeLayer.eachLayer(function(layer) {
+        if (
+          _instanceof(layer, L.Marker) &&
+          layer.feature.properties.id === id
+        ) {
+          map.setView(layer.getLatLng(), zoom);
+        }
+      });
+      break;
+  }
+};
+
+var removeAndRestartLayer = function removeAndRestartLayer() {
+  map.removeLayer(routeLayer);
+  map.removeLayer(markersLayer);
+  map.removeLayer(clusterGroup);
+  markersLayer = initiateMarkersLayer();
+  routeLayer = initiateRouteLayer();
+  clusterGroup = initiateClusterGroup();
+  getViewBounds();
+};
+
+var onMouseUp = function onMouseUp(e) {
+  // Capture xy coordinates
+  var tempEnd = [e.latlng.lng, e.latlng.lat];
+  selectionBox = initiateSelectionBox(start, tempEnd);
+  endSelection();
+};
+
+var onKeyDown = function onKeyDown(e) {
+  // If the ESC key is pressed
+  if (e.keyCode === 27) endSelection();
+};
+
+var mouseDown = function mouseDown(e) {
+  var isPressedWithShift = !(
+    e.originalEvent.shiftKey && e.originalEvent.button === 0
+  ); // Continue the rest of the function if the shiftkey is pressed.
+
+  if (isPressedWithShift) return;
+  map.boxZoom.disable();
+  start = initiateSelectionStart();
+  start = [e.latlng.lat, e.latlng.lng];
+  startMouse = {
+    x: e.originalEvent.clientX,
+    y: e.originalEvent.clientY //initiate empty selection geobox
+  };
+  selectionBox = initiateSelectionBox(start, start);
+  map.on("mousemove", onMouseMove);
+  map.on("mouseup", onMouseUp);
+  map.on("keydown", onKeyDown);
+};
+
+var endSelection = function endSelection() {
+  startMouse = initMouseStart(); // Remove these events now that endSelection has been called.
+
+  map.off("mousemove", onMouseMove);
+  map.off("keydown", onKeyDown);
+  map.off("mouseup", onMouseUp);
+
+  if (boxdraw) {
+    boxdraw.style.top = 0;
+    boxdraw.style.left = 0;
+    boxdraw.style.width = 0;
+    boxdraw.style.height = 0;
+  } // if (selectedMarkers.length >= 100) {
+  // 	console.log(`Select a smaller number of features, currently: ${selectedMarkers.length}`);
+  // }
+  // tempSelectedMarkers=selectedMarkers;
+  // selectedMarkers=new Array();
+
+  getSelectedMarkers();
+};
+
+var onMouseMove = function onMouseMove(e) {
+  // Capture the ongoing xy coordinates
+  var tempEnd = [e.latlng.lat, e.latlng.lng];
+  selectionBox = initiateSelectionBox(start, tempEnd);
+  var current = {
+    x: e.originalEvent.clientX,
+    y: e.originalEvent.clientY
+  };
+  var minX = Math.min(startMouse.x, current.x),
+    maxX = Math.max(startMouse.x, current.x),
+    minY = Math.min(startMouse.y, current.y),
+    maxY = Math.max(startMouse.y, current.y);
+  boxdraw.style.top = minY + "px";
+  boxdraw.style.left = minX + "px";
+  boxdraw.style.width = maxX - minX + "px";
+  boxdraw.style.height = maxY - minY + "px";
+  markersLayer.eachLayer(function(marker) {
+    var id = marker.feature.properties.id;
+
+    switch (true) {
+      case !!selectionBox.contains(marker.getLatLng()):
+        marker.setIcon(
+          L.mapbox.marker.icon({
+            "marker-symbol":marker.feature.properties["marker-symbol"],
+            "marker-color": yellow,
+            "marker-size": "large"
+          })
+        );
+
+        switch (true) {
+          case !selectedMarkers.includes(id):
+            selectedMarkers.push(id);
+            break;
+
+          case !!selectedMarkers.includes(id):
+            break;
+        }
+
+        break;
+
+      case !selectionBox.contains(marker.getLatLng()) &&
+        selectedMarkers.includes(id):
+        selectedMarkers.splice(selectedMarkers.indexOf(id), 1);
+        marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
+        break;
+    }
+  });
+};
+
+var clearSelection = function clearSelection() {
+  //empty all selected markers
+  selectedMarkers = new Array(); //restore default styling to markers
+
+  markersLayer.eachLayer(function(marker) {
+    marker.setIcon(L.mapbox.marker.icon(marker.feature.properties));
+  });
+  if (!PROD)
+    document.getElementById("coordinates").innerHTML = selectedMarkers.join(
+      "\n"
+    );
+};
+
+var getSelectedMarkers = function getSelectedMarkers() {
+  console.log(selectedMarkers);
+   document.getElementById("selected").value = selectedMarkers;
+  // return selectedMarkers;
+};
+
+map.on("mousedown", mouseDown);
+
+
+</script>
+
+</body>
+</html>
