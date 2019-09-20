@@ -16,3 +16,4 @@
 | + hidden input field                          |    patch     |  0.6.3  |
 | + 2 hidden input fields                       |    patch     |  0.6.4  |
 | + selecetion box that remains after selection |    patch     |  0.6.5  |
+| - zoom on double click                        |    patch     |  0.6.6  |

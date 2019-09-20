@@ -191,6 +191,8 @@ var map = L.mapbox
   .setView([0, 0], 3)
   .addLayer(L.mapbox.styleLayer("mapbox://styles/mapbox/streets-v11")); // .dragPan.disable();	// Disable default drag zooming when the shift key is held down.
 
+map['doubleClickZoom'].disable()
+
 new L.Control.Zoom({
   position: "topright"
 }).addTo(map);
