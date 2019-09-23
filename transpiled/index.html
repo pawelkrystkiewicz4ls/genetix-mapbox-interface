@@ -113,7 +113,7 @@ height: 0;
 </style>
 </head>
 	<body>
-		<div id='map'></div>
+		<div  oncontextmenu="return false;" id='map'></div>
 		<pre id='box' class='box'></pre>
     <div class="boxdraw" id='boxdraw'></div>
     	<input type="hidden" id='selected' value='' />
@@ -290,11 +290,13 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
       e.layer.closePopup();
     });
     markersLayer.on("click", function(e) {
+
       map.panTo(e.layer.getLatLng());
       // console.log(`click`)
       writeClicked(e.layer.feature.properties.id,'clicked')
     });
     markersLayer.on("dblclick", function(e) {
+
       // console.log(`double-click`)
       writeClicked(e.layer.feature.properties.id,'double-clicked')
     });
