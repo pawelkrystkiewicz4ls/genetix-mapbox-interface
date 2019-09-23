@@ -110,19 +110,10 @@ left: 0;
 width: 0;
 height: 0;
 }
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-}
 </style>
 </head>
-	<body class="noselect" oncontextmenu="return false;">
-		<div   id='map'></div>
+	<body>
+		<div  oncontextmenu="return false;" id='map'></div>
 		<pre id='box' class='box'></pre>
     <div class="boxdraw" id='boxdraw'></div>
     	<input type="hidden" id='selected' value='' />
@@ -248,7 +239,7 @@ var initMouseStart = function initMouseStart() {
     y: null
   };
 };
-map.boxZoom.disable();
+
 var markersLayer = initiateMarkersLayer();
 var routeLayer = initiateRouteLayer();
 var clusterGroup = initiateClusterGroup();
@@ -581,7 +572,6 @@ var onKeyDown = function onKeyDown(e) {
   if (e.keyCode === 27) endSelection();
 };
 
-
 var mouseDown = function mouseDown(e) {
   var isPressedWithShift = !(
     e.originalEvent.shiftKey && e.originalEvent.button === 0
@@ -589,7 +579,7 @@ var mouseDown = function mouseDown(e) {
 
   if (isPressedWithShift) return;
   selectionBoxLayer.clearLayers();
-  // map.boxZoom.disable();
+  map.boxZoom.disable();
   start = initiateSelectionStart();
   start = [e.latlng.lat, e.latlng.lng];
   startMouse = {
@@ -597,7 +587,6 @@ var mouseDown = function mouseDown(e) {
     y: e.originalEvent.clientY //initiate empty selection geobox
   };
   selectionBox = initiateSelectionBox(start, start);
-
   map.on("mousemove", onMouseMove);
   map.on("mouseup", onMouseUp);
   map.on("keydown", onKeyDown);

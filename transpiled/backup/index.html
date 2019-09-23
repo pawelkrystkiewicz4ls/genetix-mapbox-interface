@@ -110,10 +110,19 @@ left: 0;
 width: 0;
 height: 0;
 }
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
 </style>
 </head>
-	<body>
-		<div id='map'></div>
+	<body class="noselect" oncontextmenu="return false;">
+		<div   id='map'></div>
 		<pre id='box' class='box'></pre>
     <div class="boxdraw" id='boxdraw'></div>
     	<input type="hidden" id='selected' value='' />
@@ -290,11 +299,13 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
       e.layer.closePopup();
     });
     markersLayer.on("click", function(e) {
+
       map.panTo(e.layer.getLatLng());
       // console.log(`click`)
       writeClicked(e.layer.feature.properties.id,'clicked')
     });
     markersLayer.on("dblclick", function(e) {
+
       // console.log(`double-click`)
       writeClicked(e.layer.feature.properties.id,'double-clicked')
     });
