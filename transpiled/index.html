@@ -251,6 +251,7 @@ var initMouseStart = function initMouseStart() {
 map.boxZoom.disable();
 var markersLayer = initiateMarkersLayer();
 var routeLayer = initiateRouteLayer();
+var tempRouteLayer = initiateRouteLayer();
 var clusterGroup = initiateClusterGroup();
 var selectionBox = initiateSelectionBox();
 var selectedMarkers = new Array();
@@ -375,6 +376,65 @@ var addGeoJSONRoute = function addGeoJSONRoute() {
     getViewBounds();
   }
 };
+
+var addGeoJSONTempRoute = function addGeoJSONTempRoute() {
+  var features =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  removeAndRestartLayer();
+
+  if (!!features) {
+    tempRouteLayer.setGeoJSON({
+      type: "FeatureCollection",
+      features: features
+    }); // map.fitBounds(routeLayer.getBounds());
+
+    tempRouteLayer.eachLayer(function(layer) {
+      if (layer.feature.geometry.type === "Point") {
+        layer.bindPopup(layer.feature.properties.description, {
+          closeButton: false
+        }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
+
+        var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
+          .concat(
+            layer.feature.properties["marker-color"],
+            ";\n\t\t\t\t\tcolor: "
+          )
+          .concat(
+            layer.feature.properties["marker-color"],
+            ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
+          );
+        var newIcon = new L.divIcon({
+          className: "my-div-icon",
+          html: '<span style="'.concat(markerHtmlStyles, '" />')
+        });
+        layer.setIcon(newIcon);
+      }
+
+      if (_instanceof(layer, L.Polyline)) {
+        layer.setStyle({
+          color: layer.feature.properties.color
+        });
+      }
+    });
+    tempRouteLayer.on("mouseover", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
+        e.layer.openPopup();
+      }
+    });
+    tempRouteLayer.on("mouseout", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
+        e.layer.closePopup();
+      }
+    });
+    tempRouteLayer.on("click", function(e) {
+      if (e.layer.feature.geometry.type === "Point") {
+        map.panTo(e.layer.getLatLng());
+      }
+    });
+    map.addLayer(tempRouteLayer);
+    getViewBounds();
+  }
+};
 /**ADD ROUTE AND MARKERS IN THE SAME TIME */
 
 var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
@@ -382,6 +442,9 @@ var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
     arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var markers =
     arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+var tempRoute =
+    arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
   removeAndRestartLayer();
 
   switch (true) {
@@ -435,6 +498,56 @@ var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
         }
       });
       map.addLayer(routeLayer);
+    case !!tempRoute:
+      tempRouteLayer.setGeoJSON({
+        type: "FeatureCollection",
+        features: route
+      }); // fit to bounds
+
+      tempRouteLayer.eachLayer(function(layer) {
+        if (layer.feature.geometry.type === "Point") {
+          layer.bindPopup(layer.feature.properties.description, {
+            closeButton: false
+          }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
+
+          var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
+            .concat(
+              layer.feature.properties["marker-color"],
+              ";\n\t\t\t\t\tcolor: "
+            )
+            .concat(
+              layer.feature.properties["marker-color"],
+              ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
+            );
+          var newIcon = new L.divIcon({
+            className: "my-div-icon",
+            html: '<span style="'.concat(markerHtmlStyles, '" />')
+          });
+          layer.setIcon(newIcon);
+        }
+
+        if (_instanceof(layer, L.Polyline)) {
+          layer.setStyle({
+            color: layer.feature.properties.color
+          });
+        }
+      });
+      tempRouteLayer.on("mouseover", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
+          e.layer.openPopup();
+        }
+      });
+      tempRouteLayer.on("mouseout", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
+          e.layer.closePopup();
+        }
+      });
+      tempRouteLayer.on("click", function(e) {
+        if (e.layer.feature.geometry.type === "Point") {
+          map.panTo(e.layer.getLatLng());
+        }
+      });
+      map.addLayer(tempRouteLayer);
 
     case !!markers:
       markersLayer = initiateMarkersLayer();
@@ -475,11 +588,13 @@ var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
 var getViewBounds = function getViewBounds() {
   var routeVisible =
     routeLayer._geojson.features && routeLayer._geojson.features.length > 0;
+  var tempRouteVisible =
+    tempRouteLayer._geojson.features && tempRouteLayer._geojson.features.length > 0;
   var markersVisible =
     markersLayer._geojson.features && markersLayer._geojson.features.length > 0;
 
   switch (true) {
-    case routeVisible && markersVisible:
+    case routeVisible && markersVisible && tempRouteVisible:
       var group = new L.featureGroup([routeLayer, markersLayer]);
       map.fitBounds(group.getBounds()); // map.fitBounds(markersLayer.getBounds());
 
@@ -491,6 +606,9 @@ var getViewBounds = function getViewBounds() {
 
     case routeVisible:
       map.fitBounds(routeLayer.getBounds());
+      break;
+    case tempRouteVisible:
+      map.fitBounds(tempRouteLayer.getBounds());
       break;
     // case !!userGPS:
     // 	map.setView(userGPS, 6);
@@ -512,11 +630,9 @@ var getViewBoundsById = function getViewBoundsById() {
   var id =
     arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var zoom =
-    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
   var type =
-    arguments.length > 2 && arguments[2] !== undefined
-      ? arguments[2]
-      : "marker";
+    arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "marker";
 
   switch (true) {
     case id && type === "marker":
@@ -529,7 +645,7 @@ var getViewBoundsById = function getViewBoundsById() {
 
           case _instanceof(layer, L.Marker) &&
             layer.feature.properties.id === id:
-            map.setView(layer.getLatLng(), zoom);
+            map.setView(layer.getLatLng(),zoom)
             break;
         }
       });
@@ -537,6 +653,16 @@ var getViewBoundsById = function getViewBoundsById() {
 
     case id && type === "route":
       routeLayer.eachLayer(function(layer) {
+        if (
+          _instanceof(layer, L.Polyline) &&
+          layer.feature.properties.id === id
+        ) {
+          map.fitBounds(layer.getBounds());
+        }
+      });
+      break;
+    case id && type === "temp-route":
+      tempRouteLayer.eachLayer(function(layer) {
         if (
           _instanceof(layer, L.Polyline) &&
           layer.feature.properties.id === id
@@ -561,10 +687,13 @@ var getViewBoundsById = function getViewBoundsById() {
 
 var removeAndRestartLayer = function removeAndRestartLayer() {
   map.removeLayer(routeLayer);
+  map.removeLayer(tempRouteLayer);
   map.removeLayer(markersLayer);
   map.removeLayer(clusterGroup);
+
   markersLayer = initiateMarkersLayer();
   routeLayer = initiateRouteLayer();
+  tempRouteLayer = initiateRouteLayer();
   clusterGroup = initiateClusterGroup();
   getViewBounds();
 };
