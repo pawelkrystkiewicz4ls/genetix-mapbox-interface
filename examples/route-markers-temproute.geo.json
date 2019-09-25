@@ -6,7 +6,9 @@
 			"type": "LineString",
 			"coordinates": [
 		[ -122.48369693756104, 37.83381888486939 ],
-		[ -122.48404026031496, 37.83114119107971 ],[ -122.48700141906738, 37.83080223556934 ], [ -122.48987674713133, 37.83263257682617 ],[ -122.49378204345702, 37.83368330777276 ]
+		[ -122.48404026031496, 37.83114119107971 ],
+		[ -122.48700141906738, 37.83080223556934 ],
+		[ -122.48987674713133, 37.83263257682617 ],[ -122.49378204345702, 37.83368330777276 ]
 			]
 		}
 	},
@@ -741,98 +743,90 @@
 			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
 		}
 	}
-],[
+],
+[
 	{
 		"type": "Feature",
-		"properties": { "color": "#d00707" },
+		"properties": {"id":165, "color": "#3544FE" },
 		"geometry": {
 			"type": "LineString",
 			"coordinates": [
-				[ -122.48369693756104, 37.83381888486939 ],
-				[ -122.48348236083984, 37.83317489144141 ],
-				[ -122.48339653015138, 37.83270036637107 ],
-				[ -122.48356819152832, 37.832056363179625 ],
-				[ -122.48404026031496, 37.83114119107971 ]
-			]
-		}
-	},
-		{
-		"type": "Feature",
-		"geometry": { "type": "Point", "coordinates": [ -122.48369693756104, 37.83381888486939 ] },
-		"properties": {
-			"id": 1,
-			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
-			"marker-color": "#d00707",
-			"marker-size": "medium"
-		}
-	},
-	{
-		"type": "Feature",
-		"geometry": { "type": "Point", "coordinates": [ -122.48404026031496, 37.83114119107971 ] },
-		"properties": {
-			"id": 1,
-			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
-			"marker-color": "#d00707",
-			"marker-size": "medium"
-		}
-	},
-	{
-		"type": "Feature",
-		"properties": { "color": "#3544FE" },
-		"geometry": {
-			"type": "LineString",
-			"coordinates": [
-				[52, 16 ],
-				[ 52.48888969421387, 16.83297152392784 ],
-				[ 52.48987674713133, 16.83263257682617 ]
-			]
-		}
-	},
-
-	{
-		"type": "Feature",
-		"geometry": { "type": "Point", "coordinates": [ -122.48700141906738, 37.83080223556934 ] },
-		"properties": {
-			"id": 1,
-			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
-			"marker-color": "#3544FE",
-			"marker-size": "medium"
-		}
-	},
-	{
-		"type": "Feature",
-		"geometry": { "type": "Point", "coordinates": [ -122.48987674713133, 37.83263257682617 ] },
-		"properties": {
-			"id": 1,
-			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
-			"marker-color": "#3544FE",
-			"marker-size": "medium"
-		}
-	},
-
-	{
-		"type": "Feature",
-		"properties": { "color": "#A546CA" },
-		"geometry": {
-			"type": "LineString",
-			"coordinates": [
-				[ -122.48987674713133, 37.83263257682617 ],
-				[ -122.49043464660643, 37.832937629287755 ],
-				[ -122.49125003814696, 37.832429207817725 ],
-				[ -122.49163627624512, 37.832564787218985 ],
-				[ -122.49223709106445, 37.83337825839438 ],
-				[ -122.49378204345702, 37.83368330777276 ]
+				[16.890518,52.3861566],
+				[16.280989,53.0220536],
+				[18.6090884,53.0843376],
+				[20.9959182,52.2662821],
+				[17.4366916,52.5268746]
 			]
 		}
 	},
 	{
 		"type": "Feature",
-		"geometry": { "type": "Point", "coordinates": [ -122.49378204345702, 37.83368330777276 ] },
+		"geometry": {
+			"type": "Point",
+			"coordinates": [16.890518,52.3861566]
+		},
 		"properties": {
-			"id": 1,
-			"description": "<div class='genetix-popup'><p class='genetix-popup--header'>W&H Fenster, Turen und Sonnenschtuz GmbH & Co. KG</p><span>O-00012059_7</span><p>Graf Heinrich Strasse 50</br>DE 21698 Harslefd</p><p>Obj\u0119to\u015B\u0107: <span class='genetix-popup--values'>6409,3</span> m<sup>3</sup></br>Waga: <span class='genetix-popup--values'>2733</span> kg</p><p>Data dostawy: <span class='genetix-popup--dates'>2019-06-10,2019-06-10,2019-06-12</span></p></div>",
-			"marker-color": "#A546CA",
-			"marker-size": "medium"
+			"id": 45,
+			"description": "Vienna",
+			"created_at": "2015-05-26T11:08:24Z",
+			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
+		}
+	},
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [16.280989,53.0220536]
+		},
+		"properties": {
+			"id": 45,
+			"description": "Vienna",
+			"created_at": "2015-05-26T11:08:24Z",
+			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
 		}
 	}
+	,
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": 	[18.6090884,53.0843376]
+		},
+		"properties": {
+			"id": 45,
+			"description": "Vienna",
+			"created_at": "2015-05-26T11:08:24Z",
+			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
+		}
+	}
+	,
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": 		[20.9959182,52.2662821]
+
+		},
+		"properties": {
+			"id": 45,
+			"description": "Vienna",
+			"created_at": "2015-05-26T11:08:24Z",
+			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
+		}
+	}
+	,
+	{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": 		[17.4366916,52.5268746]
+		},
+		"properties": {
+			"id": 45,
+			"description": "Vienna",
+			"created_at": "2015-05-26T11:08:24Z",
+			"updated_at": "2015-05-26T11:08:47Z","marker-color": "#3544FE"
+		}
+	}
+	
 ]

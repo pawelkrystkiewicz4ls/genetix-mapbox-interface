@@ -272,7 +272,12 @@ function writeClicked(markerId,elementId){
 var addGeoJSONMarkers = function addGeoJSONMarkers() {
   var features =
     arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  removeAndRestartLayer();
+  var enableClustering =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var clear =
+    arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+  if(!!clear){removeAndRestartLayer();}
 
   if (!!features) {
     markersLayer = initiateMarkersLayer();
@@ -280,7 +285,9 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
     markersLayer.setGeoJSON({
       type: "FeatureCollection",
       features: features
-    }); // fit to bounds
+    });
+
+    // fit to bounds
     // map.fitBounds(markersLayer.getBounds());
 
     markersLayer.eachLayer(function(layer) {
@@ -288,9 +295,15 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
         closeButton: false
       });
     });
-    markersLayer.eachLayer(function(layer) {
+
+    if(!!enableClustering)
+    {
+      markersLayer.eachLayer(function(layer) {
       clusterGroup.addLayer(layer);
     });
+    }
+
+
     /**MARKERS EVENTS START */
 
     markersLayer.on("mouseover", function(e) {
@@ -300,9 +313,7 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
       e.layer.closePopup();
     });
     markersLayer.on("click", function(e) {
-
       map.panTo(e.layer.getLatLng());
-      // console.log(`click`)
       writeClicked(e.layer.feature.properties.id,'clicked')
     });
     markersLayer.on("dblclick", function(e) {
@@ -312,7 +323,14 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
     });
     /**MARKER EVENTS END */
 
-    map.addLayer(clusterGroup);
+
+  if(!enableClustering)
+    {
+      clusterGroup=markersLayer
+    }
+      map.addLayer(clusterGroup);
+
+
   }
 
   getViewBounds();
@@ -321,7 +339,9 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
 var addGeoJSONRoute = function addGeoJSONRoute() {
   var features =
     arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  removeAndRestartLayer();
+     var clear =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+ if(!!clear){removeAndRestartLayer();}
 
   if (!!features) {
     routeLayer.setGeoJSON({
@@ -380,7 +400,10 @@ var addGeoJSONRoute = function addGeoJSONRoute() {
 var addGeoJSONTempRoute = function addGeoJSONTempRoute() {
   var features =
     arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  removeAndRestartLayer();
+  var clear =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+  if(!!clear){removeAndRestartLayer();}
 
   if (!!features) {
     tempRouteLayer.setGeoJSON({
@@ -437,153 +460,25 @@ var addGeoJSONTempRoute = function addGeoJSONTempRoute() {
 };
 /**ADD ROUTE AND MARKERS IN THE SAME TIME */
 
-var addGeoJSONRouteAndMarkers = function addGeoJSONRouteAndMarkers() {
-  var route =
-    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  var markers =
-    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-var tempRoute =
-    arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+var addGeoJSONRoutesAndMarkers = function addGeoJSONRoutesAndMarkers() {
+  var route = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var markers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var tempRoute = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
   removeAndRestartLayer();
 
   switch (true) {
     case !!route:
-      routeLayer.setGeoJSON({
-        type: "FeatureCollection",
-        features: route
-      }); // fit to bounds
-
-      routeLayer.eachLayer(function(layer) {
-        if (layer.feature.geometry.type === "Point") {
-          layer.bindPopup(layer.feature.properties.description, {
-            closeButton: false
-          }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
-
-          var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
-            .concat(
-              layer.feature.properties["marker-color"],
-              ";\n\t\t\t\t\tcolor: "
-            )
-            .concat(
-              layer.feature.properties["marker-color"],
-              ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
-            );
-          var newIcon = new L.divIcon({
-            className: "my-div-icon",
-            html: '<span style="'.concat(markerHtmlStyles, '" />')
-          });
-          layer.setIcon(newIcon);
-        }
-
-        if (_instanceof(layer, L.Polyline)) {
-          layer.setStyle({
-            color: layer.feature.properties.color
-          });
-        }
-      });
-      routeLayer.on("mouseover", function(e) {
-        if (e.layer.feature.geometry.type === "Point") {
-          e.layer.openPopup();
-        }
-      });
-      routeLayer.on("mouseout", function(e) {
-        if (e.layer.feature.geometry.type === "Point") {
-          e.layer.closePopup();
-        }
-      });
-      routeLayer.on("click", function(e) {
-        if (e.layer.feature.geometry.type === "Point") {
-          map.panTo(e.layer.getLatLng());
-        }
-      });
-      map.addLayer(routeLayer);
+         addGeoJSONRoute(route, false)
     case !!tempRoute:
-      tempRouteLayer.setGeoJSON({
-        type: "FeatureCollection",
-        features: route
-      }); // fit to bounds
-
-      tempRouteLayer.eachLayer(function(layer) {
-        if (layer.feature.geometry.type === "Point") {
-          layer.bindPopup(layer.feature.properties.description, {
-            closeButton: false
-          }); //ADD CUSTOM ICON FOR POINTS ON ROUTE
-
-          var markerHtmlStyles = "\n\t\t\t\t\tbackground-color: "
-            .concat(
-              layer.feature.properties["marker-color"],
-              ";\n\t\t\t\t\tcolor: "
-            )
-            .concat(
-              layer.feature.properties["marker-color"],
-              ";\n\t\t\t\t\tposition:relative;\n\t\t\t\t\tdisplay: block;\n\t\t\t\t\theight:15px;\n\t\t\t\t\twidth:15px;"
-            );
-          var newIcon = new L.divIcon({
-            className: "my-div-icon",
-            html: '<span style="'.concat(markerHtmlStyles, '" />')
-          });
-          layer.setIcon(newIcon);
-        }
-
-        if (_instanceof(layer, L.Polyline)) {
-          layer.setStyle({
-            color: layer.feature.properties.color
-          });
-        }
-      });
-      tempRouteLayer.on("mouseover", function(e) {
-        if (e.layer.feature.geometry.type === "Point") {
-          e.layer.openPopup();
-        }
-      });
-      tempRouteLayer.on("mouseout", function(e) {
-        if (e.layer.feature.geometry.type === "Point") {
-          e.layer.closePopup();
-        }
-      });
-      tempRouteLayer.on("click", function(e) {
-        if (e.layer.feature.geometry.type === "Point") {
-          map.panTo(e.layer.getLatLng());
-        }
-      });
-      map.addLayer(tempRouteLayer);
-
+         addGeoJSONTempRoute(tempRoute, false)
     case !!markers:
-      markersLayer = initiateMarkersLayer();
-      clusterGroup = initiateClusterGroup();
-      markersLayer.setGeoJSON({
-        type: "FeatureCollection",
-        features: markers
-      }); // fit to bounds
-
-      markersLayer.eachLayer(function(layer) {
-        layer.bindPopup(layer.feature.properties.description, {
-          closeButton: false
-        });
-      });
-      markersLayer.eachLayer(function(layer) {
-        clusterGroup.addLayer(layer);
-      });
-      /**MARKERS EVENTS START */
-
-      markersLayer.on("mouseover", function(e) {
-        e.layer.openPopup();
-      });
-      markersLayer.on("mouseout", function(e) {
-        e.layer.closePopup();
-      });
-      markersLayer.on("click", function(e) {
-        map.panTo(e.layer.getLatLng());
-      });
-      /**MARKER EVENTS END */
-
-      map.addLayer(clusterGroup);
-      break;
+        addGeoJSONMarkers(markers, true, false)
+    break;
   }
-
+  //SET VIEW TO ACTIVE MARKERS / ROUTE /
   getViewBounds();
-}; //SET VIEW TO ACTIVE MARKERS / ROUTE /
+};
 
 var getViewBounds = function getViewBounds() {
   var routeVisible =
@@ -610,9 +505,6 @@ var getViewBounds = function getViewBounds() {
     case tempRouteVisible:
       map.fitBounds(tempRouteLayer.getBounds());
       break;
-    // case !!userGPS:
-    // 	map.setView(userGPS, 6);
-    // 	break;
 
     default:
       map.setView(
