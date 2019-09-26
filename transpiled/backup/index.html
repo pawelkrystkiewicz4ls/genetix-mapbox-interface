@@ -117,7 +117,6 @@ height: 0;
     top: 0;
     height: auto;
     width: 100vw;
-		display: none;
 }
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -190,19 +189,18 @@ var ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK = true;
 var PROD = true;
 var map; //will be initialized later in setToken
 var warningElementName='token-warning'
-//var url = new URL(window.location.href);
+var url = new URL(window.location.href);
 
-var token ="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
-//url.searchParams.get("token");
+var token = url.searchParams.get("token");
 // console.log(token);
 
-// if(!token){
-//   document.getElementById(warningElementName).style.display = "block";
-//   token="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
-// }
-// else{
-//   document.getElementById(warningElementName).style.display = "none";
-// }
+if(!token){
+  document.getElementById(warningElementName).style.display = "block";
+  token="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
+}
+else{
+  document.getElementById(warningElementName).style.display = "none";
+}
 
 
 // function initializeMap(token) {
