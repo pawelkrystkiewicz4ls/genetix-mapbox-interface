@@ -20,3 +20,5 @@
 | - default zoom in getViewBoundsById()                                    |     mod      |  0.6.7  |
 | + second parameter to disable clustering                                 |     mod      |  0.7.7  |
 | refactor of addGeoJSONRouteAndMarkers() to use earlier defined functions |   feature    |  0.8.8  |
+| + button for route deletion                                              |   feature    |  0.9.8  |
+| + version info                                                           |   feature    |  0.9.9  |

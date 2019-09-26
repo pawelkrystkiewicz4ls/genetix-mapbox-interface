@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-  <title>Genetix Map</title>
+<title>4LS/Genetix Map  v0.9.9</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
@@ -11,9 +11,21 @@
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css'
   rel='stylesheet' />
 <style>
+
 body {
 	margin: 0;
 	padding: 0;
+	font: 12px/20px 'Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 12px;
+    line-height: 20px;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 #map  {
@@ -27,26 +39,23 @@ body {
 	width: 100vw;
 }
 /* whole DIV wrapping content of popup */
-.genetix-popup {
-
-}
+.genetix-popup {}
 /* header of popup contents */
-.genetix-popup--header {
-	color: red;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
+.genetix-popup--header {color: red;margin-top: 0;	margin-bottom: 0;}
 /* highligthing values like weight or volume */
-.genetix-popup--values {
-	color: blue;
-}
-
+.genetix-popup--values {color: blue;}
 /* highlighting delivery dates */
-.genetix-popup--dates {
-	color: purple;
-}
+.genetix-popup--dates {color: purple;}
 
+.version-info{
+	font-size:10px;
+	margin:0;
+	padding:0;
+	top:0;
+	left:5px;
+	position: absolute;
+	z-index:9999
+}
 .button{
 	position: absolute;
 	border: 2px solid rgba(0, 0, 0, .35);
@@ -61,47 +70,11 @@ body {
 	height: 26px;
 }
 
-.home-button {
-	top: 70px;
-
-}
-.button:hover {
-	background-color: rgb(247, 244, 244);
-}
-
-.clear-button {
-	/* position: absolute;
-	border: 2px solid rgba(0, 0, 0, .35);
-	border-radius: 3px;
-	box-shadow: none;
-	background-attachment: fixed;
-	background-position: center;
-	background-color: #fff;
-	display: block;
-	right: 10px; */
-	top: 103px;
-
-}
-.delete-route-button{
-	/* position: absolute;
-	border: 2px solid rgba(0, 0, 0, .35);
-	border-radius: 3px;
-	box-shadow: none;
-	background-attachment: fixed;
-	background-position: center;
-	background-color: #fff;
-	display: block;
-	right: 10px; */
-	top: 137px;
-	width: 26px;
-	height: 26px;
-}
-
-
-.my-div-icon {
-	height: 0px;
-	width: 0px;
-}
+.home-button {top: 70px;}
+.button:hover{background-color: rgb(247, 244, 244);}
+.clear-button {top: 103px;}
+.delete-route-button{top: 137px;}
+.my-div-icon {height: 0px;	width: 0px;}
 pre.ui-coordinates {
   background:rgba(0,0,0,0.5);
   position:absolute;
@@ -151,6 +124,7 @@ pre.ui-coordinates {
 	<body class="noselect" oncontextmenu="return false;">
 		<div   id='map'></div>
 		<pre id='box' class='box'></pre>
+		<pre id='version-info' class='version-info'></pre>
     <div class="boxdraw" id='boxdraw'></div>
     <div class="token-warning" id='token-warning'>
       <center>Please provide your own mapbox access-token as token parameter:<br/>
@@ -160,7 +134,8 @@ pre.ui-coordinates {
     	<input type="hidden" id='selected' value='' />
     	<input type="hidden" id='clicked' value='' />
     	<input type="hidden" id='double-clicked' value='' />
-    	<input type="hidden" id='deleted-routes' value='' />
+			<input type="hidden" id='deleted-routes' value='' />
+
 <!-- <svg   aria-hidden="true" focusable="false" data-prefix="fas" data-icon="expand" class="svg-inline--fa fa-expand fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path></svg> -->
 <svg class="button home-button"  onclick="getViewBounds()" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024">
   <path d="M391 240.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L200 146.3a8.03 8.03 0 0 0-11.3 0l-42.4 42.3a8.03 8.03 0 0 0 0 11.3L280 333.6l-43.9 43.9a8.01 8.01 0 0 0 4.7 13.6L401 410c5.1.6 9.5-3.7 8.9-8.9L391 240.9zm10.1 373.2L240.8 633c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L146.3 824a8.03 8.03 0 0 0 0 11.3l42.4 42.3c3.1 3.1 8.2 3.1 11.3 0L333.7 744l43.7 43.7A8.01 8.01 0 0 0 391 783l18.9-160.1c.6-5.1-3.7-9.4-8.8-8.8zm221.8-204.2L783.2 391c6.6-.8 9.4-8.9 4.7-13.6L744 333.6 877.7 200c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.3a8.03 8.03 0 0 0-11.3 0L690.3 279.9l-43.7-43.7a8.01 8.01 0 0 0-13.6 4.7L614.1 401c-.6 5.2 3.7 9.5 8.8 8.9zM744 690.4l43.9-43.9a8.01 8.01 0 0 0-4.7-13.6L623 614c-5.1-.6-9.5 3.7-8.9 8.9L633 783.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L824 877.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L744 690.4z"/>
@@ -175,6 +150,7 @@ pre.ui-coordinates {
 <!-- <svg class="delete-route-button"  onclick="deleteRoutes()" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024">
 		<path d="M391 240.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L200 146.3a8.03 8.03 0 0 0-11.3 0l-42.4 42.3a8.03 8.03 0 0 0 0 11.3L280 333.6l-43.9 43.9a8.01 8.01 0 0 0 4.7 13.6L401 410c5.1.6 9.5-3.7 8.9-8.9L391 240.9zm10.1 373.2L240.8 633c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L146.3 824a8.03 8.03 0 0 0 0 11.3l42.4 42.3c3.1 3.1 8.2 3.1 11.3 0L333.7 744l43.7 43.7A8.01 8.01 0 0 0 391 783l18.9-160.1c.6-5.1-3.7-9.4-8.8-8.8zm221.8-204.2L783.2 391c6.6-.8 9.4-8.9 4.7-13.6L744 333.6 877.7 200c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.3a8.03 8.03 0 0 0-11.3 0L690.3 279.9l-43.7-43.7a8.01 8.01 0 0 0-13.6 4.7L614.1 401c-.6 5.2 3.7 9.5 8.8 8.9zM744 690.4l43.9-43.9a8.01 8.01 0 0 0-4.7-13.6L623 614c-5.1-.6-9.5 3.7-8.9 8.9L633 783.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L824 877.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L744 690.4z"/>
 	</svg> -->
+
 <script type="text/javascript">
 
 'use strict';
@@ -217,12 +193,13 @@ var ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK = true;
 var PROD = true;
 var map; //will be initialized later in setToken
 var warningElementName='token-warning'
+var version='0.9.9'
+var versionElementName='version-info'
 //var url = new URL(window.location.href);
-
 var token ="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
 //url.searchParams.get("token");
 // console.log(token);
-
+document.getElementById(versionElementName).innerHTML  = version;
 // if(!token){
 //   document.getElementById(warningElementName).style.display = "block";
 //   token="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
