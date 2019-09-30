@@ -22,3 +22,5 @@
 | refactor of addGeoJSONRouteAndMarkers() to use earlier defined functions |   feature    |  0.8.8  |
 | + button for route deletion                                              |   feature    |  0.9.8  |
 | + version info                                                           |   feature    |  0.9.9  |
+| + write empty if no id found                                             |   feature    | 0.9.10  |
+| + write empty if clicked on map                                          |   feature    | 0.9.11  |
