@@ -22,5 +22,9 @@
 | refactor of addGeoJSONRouteAndMarkers() to use earlier defined functions |   feature    |  0.8.8  |
 | + button for route deletion                                              |   feature    |  0.9.8  |
 | + version info                                                           |   feature    |  0.9.9  |
-| + write empty if no id found                                             |   feature    | 0.9.10  |
-| + write empty if clicked on map                                          |   feature    | 0.9.11  |
+| + write empty string if no id found                                      |   patch    | 0.9.10  |
+| + write empty string if clicked on map                                   |   patch    | 0.9.12  |
+| + change clustring zoom                                                  |   patch    | 0.9.13  |
+| + disable zoom on cluster click                                          |   patch    | 0.9.14  |
+| + add optional zoomToBounds parameter                                    |   patch    | 0.10.14  |
+| + add debug view                                                         |   patch    | 0.10.15  |

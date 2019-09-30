@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>4LS/Genetix Map  v0.9.11</title>
+<title></title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
@@ -66,7 +66,7 @@ body {
 	background-color: #fff;
 	display: block;
 	right: 10px;
-		width: 26px;
+	width: 26px;
 	height: 26px;
 }
 
@@ -102,7 +102,7 @@ pre.ui-coordinates {
 		height: 0;
 }
 	.token-warning {
-		/* pointer-events: none; */
+
     position: absolute;
     background:rgb(255, 174, 0);
     top: 0;
@@ -110,6 +110,26 @@ pre.ui-coordinates {
     width: 100vw;
 		display: none;
 }
+
+	.dev-info {
+		font-size: 11px;
+    position: absolute;
+    background-color:rgba(160, 160, 160, 0.384);
+    padding:5px;
+    margin:10px;
+		border-radius: 5px;
+		height: auto;
+    /* width: auto; */
+		display: flex;
+		flex-direction: column;
+}
+.inputs{
+  background-color:rgba(160, 160, 160, 0.61);
+	width:40px;
+	border-radius:5px;
+
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -123,19 +143,38 @@ pre.ui-coordinates {
 </head>
 	<body class="noselect" oncontextmenu="return false;">
 		<div   id='map'></div>
-		<pre id='box' class='box'></pre>
-		<pre id='version-info' class='version-info'></pre>
-    <div class="boxdraw" id='boxdraw'></div>
+		<span id='box' class='box'></span>
+		<span id='version-info' class='version-info' ></span>
+		<div class="boxdraw" id='boxdraw'></div>
+
     <div class="token-warning" id='token-warning'>
       <center>Please provide your own mapbox access-token as token parameter:<br/>
         <span>maps.4ls.pl<b>?token=your.token.without.qoutes</b></span>
         </center>
-    </div>
-    	<input type="hidden" id='selected' value='' />
-    	<input type="hidden" id='clicked' value='' />
-    	<input type="hidden" id='double-clicked' value='' />
-			<input type="hidden" id='deleted-routes' value='' />
+		</div>
 
+		<table class="dev-info" id='dev-info'>
+		<tr>
+			<td>SELECTED</td>
+			 <td><input  class="inputs" id='selected' value='' readonly/></td>
+		</tr>
+		<tr>
+		 <td>CLICK</td>
+		 <td><input  class="inputs" id='clicked' value='' readonly/></td>
+		 </tr>
+    <tr>
+			<td>CLICK x2</td>
+			<td><input class="inputs"  id='double-clicked' value='' readonly/></td>
+		</tr>
+		<!-- <tr>
+			<td>DELETED ROUTES</td>
+			<td> <input class="inputs"   id='deleted-routes' value='' readonly/></td>
+		</tr> -->
+		<tr>
+			<td>ZOOM</td>
+			<td><input class="inputs"   id='zoom' value=''readonly /></td>
+		</tr>
+		</table>
 <!-- <svg   aria-hidden="true" focusable="false" data-prefix="fas" data-icon="expand" class="svg-inline--fa fa-expand fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z"></path></svg> -->
 <svg class="button home-button"  onclick="getViewBounds()" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024">
   <path d="M391 240.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L200 146.3a8.03 8.03 0 0 0-11.3 0l-42.4 42.3a8.03 8.03 0 0 0 0 11.3L280 333.6l-43.9 43.9a8.01 8.01 0 0 0 4.7 13.6L401 410c5.1.6 9.5-3.7 8.9-8.9L391 240.9zm10.1 373.2L240.8 633c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L146.3 824a8.03 8.03 0 0 0 0 11.3l42.4 42.3c3.1 3.1 8.2 3.1 11.3 0L333.7 744l43.7 43.7A8.01 8.01 0 0 0 391 783l18.9-160.1c.6-5.1-3.7-9.4-8.8-8.8zm221.8-204.2L783.2 391c6.6-.8 9.4-8.9 4.7-13.6L744 333.6 877.7 200c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.3a8.03 8.03 0 0 0-11.3 0L690.3 279.9l-43.7-43.7a8.01 8.01 0 0 0-13.6 4.7L614.1 401c-.6 5.2 3.7 9.5 8.8 8.9zM744 690.4l43.9-43.9a8.01 8.01 0 0 0-4.7-13.6L623 614c-5.1-.6-9.5 3.7-8.9 8.9L633 783.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L824 877.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L744 690.4z"/>
@@ -146,10 +185,12 @@ pre.ui-coordinates {
 <!-- <svg class="button  delete-route-button"  onclick="deleteRoutes()" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
 	<path d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"/>
 </svg> -->
-<svg class="button  delete-route-button"  onclick="deleteRoutes()" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M9 3h6v-1.75c0-.066-.026-.13-.073-.177-.047-.047-.111-.073-.177-.073h-5.5c-.066 0-.13.026-.177.073-.047.047-.073.111-.073.177v1.75zm11 1h-16v18c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-18zm-10 3.5c0-.276-.224-.5-.5-.5s-.5.224-.5.5v12c0 .276.224.5.5.5s.5-.224.5-.5v-12zm5 0c0-.276-.224-.5-.5-.5s-.5.224-.5.5v12c0 .276.224.5.5.5s.5-.224.5-.5v-12zm8-4.5v1h-2v18c0 1.105-.895 2-2 2h-14c-1.105 0-2-.895-2-2v-18h-2v-1h7v-2c0-.552.448-1 1-1h6c.552 0 1 .448 1 1v2h7z"/></svg>
-<!-- <svg class="delete-route-button"  onclick="deleteRoutes()" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024">
-		<path d="M391 240.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L200 146.3a8.03 8.03 0 0 0-11.3 0l-42.4 42.3a8.03 8.03 0 0 0 0 11.3L280 333.6l-43.9 43.9a8.01 8.01 0 0 0 4.7 13.6L401 410c5.1.6 9.5-3.7 8.9-8.9L391 240.9zm10.1 373.2L240.8 633c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L146.3 824a8.03 8.03 0 0 0 0 11.3l42.4 42.3c3.1 3.1 8.2 3.1 11.3 0L333.7 744l43.7 43.7A8.01 8.01 0 0 0 391 783l18.9-160.1c.6-5.1-3.7-9.4-8.8-8.8zm221.8-204.2L783.2 391c6.6-.8 9.4-8.9 4.7-13.6L744 333.6 877.7 200c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.3a8.03 8.03 0 0 0-11.3 0L690.3 279.9l-43.7-43.7a8.01 8.01 0 0 0-13.6 4.7L614.1 401c-.6 5.2 3.7 9.5 8.8 8.9zM744 690.4l43.9-43.9a8.01 8.01 0 0 0-4.7-13.6L623 614c-5.1-.6-9.5 3.7-8.9 8.9L633 783.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L824 877.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L744 690.4z"/>
-	</svg> -->
+<!-- <svg class="button  delete-route-button"  onclick="deleteRoutes()" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M9 3h6v-1.75c0-.066-.026-.13-.073-.177-.047-.047-.111-.073-.177-.073h-5.5c-.066 0-.13.026-.177.073-.047.047-.073.111-.073.177v1.75zm11 1h-16v18c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-18zm-10 3.5c0-.276-.224-.5-.5-.5s-.5.224-.5.5v12c0 .276.224.5.5.5s.5-.224.5-.5v-12zm5 0c0-.276-.224-.5-.5-.5s-.5.224-.5.5v12c0 .276.224.5.5.5s.5-.224.5-.5v-12zm8-4.5v1h-2v18c0 1.105-.895 2-2 2h-14c-1.105 0-2-.895-2-2v-18h-2v-1h7v-2c0-.552.448-1 1-1h6c.552 0 1 .448 1 1v2h7z"/></svg> -->
+<span class="button  delete-route-button"  onclick="deleteRoutes()">
+<svg  width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+	<path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2m-9-14c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6-5h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-12-2h4v-1h-4v1z"/>
+</svg>
+</span>
 
 <script type="text/javascript">
 
@@ -193,13 +234,14 @@ var ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK = true;
 var PROD = true;
 var map; //will be initialized later in setToken
 var warningElementName='token-warning'
-var version='0.9.11'
+var version='0.10.14'
 var versionElementName='version-info'
 //var url = new URL(window.location.href);
 var token ="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
 //url.searchParams.get("token");
 // console.log(token);
 document.getElementById(versionElementName).innerHTML  = version;
+document.title='4LS/Genetix Map  '+version;
 // if(!token){
 //   document.getElementById(warningElementName).style.display = "block";
 //   token="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
@@ -233,6 +275,11 @@ document.getElementById(versionElementName).innerHTML  = version;
 // };
 
 // initializeMap(token)
+function toggleDevInfo(bool){
+	if(!!bool)document.getElementById('dev-info').style.display = "block";
+	else if (!bool) document.getElementById('dev-info').style.display = "none";
+}
+
 
 new L.Control.Zoom({
 	position: 'topright'
@@ -254,15 +301,21 @@ var initiateRouteLayer = function initiateRouteLayer() {
 	});
 };
 
+var disableClusteringAtZoom=5;
+
 var initiateClusterGroup = function initiateClusterGroup() {
 	return new L.MarkerClusterGroup({
+
 		polygonOptions: {
 			fillColor: '#3887be',
 			color: '#3887be',
 			weight: 2,
 			opacity: 1,
 			fillOpacity: 0.5
-		}
+		},
+		zoomToBoundsOnClick: false,
+		disableClusteringAtZoom
+
 	});
 };
 
@@ -303,10 +356,18 @@ function writeClicked(markerId, elementId) {
 	document.getElementById(elementId).value = markerId;
 }
 
+
+var zoom = map.getZoom();
+
+writeClicked(zoom,'zoom')
+
+map.on('zoom', function(){writeClicked(map.getZoom(),'zoom')});
+
 var addGeoJSONMarkers = function addGeoJSONMarkers() {
 	var features = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	var enableClustering = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 	var clear = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+	var zoomToBounds = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
 	if (!!clear) {
 		removeAndRestartLayer();
@@ -332,6 +393,10 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
 		if (!!enableClustering) {
 			markersLayer.eachLayer(function(layer) {
 				clusterGroup.addLayer(layer);
+							clusterGroup.on('clusterclick', function (a) {
+							a.layer.spiderfy()
+							console.log('cluster do something')
+					});
 			});
 		}
 
@@ -362,16 +427,18 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
 
 		if (!enableClustering) {
 			clusterGroup = markersLayer;
+
 		}
 		map.addLayer(clusterGroup);
 	}
 
-	getViewBounds();
+	if(!!zoomToBounds) {getViewBounds();}
 };
 
 var addGeoJSONRoute = function addGeoJSONRoute() {
 	var features = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	var clear = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+	var zoomToBounds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 	if (!!clear) {
 		removeAndRestartLayer();
 	}
@@ -423,14 +490,14 @@ var addGeoJSONRoute = function addGeoJSONRoute() {
 			}
 		});
 		map.addLayer(routeLayer);
-		getViewBounds();
+		if(zoomToBounds){getViewBounds();}
 	}
 };
 
 var addGeoJSONTempRoute = function addGeoJSONTempRoute() {
 	var features = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	var clear = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
+	var zoomToBounds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 	if (!!clear) {
 		removeAndRestartLayer();
 	}
@@ -482,7 +549,7 @@ var addGeoJSONTempRoute = function addGeoJSONTempRoute() {
 			}
 		});
 		map.addLayer(tempRouteLayer);
-		getViewBounds();
+		if(!!zoomToBounds) getViewBounds();
 	}
 };
 /**ADD ROUTE AND MARKERS IN THE SAME TIME */
@@ -491,20 +558,21 @@ var addGeoJSONRoutesAndMarkers = function addGeoJSONRoutesAndMarkers() {
 	var route = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	var markers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 	var tempRoute = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+	var zoomToBounds = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
 	removeAndRestartLayer();
 
 	switch (true) {
 		case !!route:
-			addGeoJSONRoute(route, false);
+			addGeoJSONRoute(route, false,false);
 		case !!tempRoute:
-			addGeoJSONTempRoute(tempRoute, false);
+			addGeoJSONTempRoute(tempRoute, false,false);
 		case !!markers:
-			addGeoJSONMarkers(markers, true, false);
+			addGeoJSONMarkers(markers, true, false,false);
 			break;
 	}
 	//SET VIEW TO ACTIVE MARKERS / ROUTE /
-	getViewBounds();
+	if(!!zoomToBounds){getViewBounds();}
 };
 
 var getViewBounds = function getViewBounds() {
@@ -595,13 +663,14 @@ function deleteRoutes(focusOnLeftovers){
 					deletedRoutes.push(layer.feature.properties.id)
 				}
 			});
-	document.getElementById('deleted-routes').value = deletedRoutes;
+	//document.getElementById('deleted-routes').value = deletedRoutes;
 
 	map.removeLayer(routeLayer);
-		routeLayer = initiateRouteLayer();
+	routeLayer = initiateRouteLayer();
 
 	if(!!focusOnLeftovers) getViewBounds();
 }
+
 var removeAndRestartLayer = function removeAndRestartLayer() {
 	map.removeLayer(routeLayer);
 	map.removeLayer(tempRouteLayer);
@@ -612,7 +681,7 @@ var removeAndRestartLayer = function removeAndRestartLayer() {
 	routeLayer = initiateRouteLayer();
 	tempRouteLayer = initiateRouteLayer();
 	clusterGroup = initiateClusterGroup();
-	getViewBounds();
+	//getViewBounds();
 };
 
 var onMouseUp = function onMouseUp(e) {
