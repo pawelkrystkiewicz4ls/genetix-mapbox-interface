@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>4LS/Genetix Map  v0.9.11</title>
+<title>4LS/Genetix Map  v0.9.9</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
@@ -193,7 +193,7 @@ var ENABLE_ADJUSTING_MAP_VIEW_MIDDLE_CLICK = true;
 var PROD = true;
 var map; //will be initialized later in setToken
 var warningElementName='token-warning'
-var version='0.9.11'
+var version='0.9.9'
 var versionElementName='version-info'
 //var url = new URL(window.location.href);
 var token ="pk.eyJ1IjoicGF3ZWxrcnlzdGtpZXdpY3o0bHMiLCJhIjoiY2p0enFrNDJ1Mm9oYTQ1cW4xeXV3aWsyciJ9.eR3LT4VJppS8DpdaNCQZ2w"
@@ -344,19 +344,12 @@ var addGeoJSONMarkers = function addGeoJSONMarkers() {
 			e.layer.closePopup();
 		});
 		markersLayer.on('click', function(e) {
-
 			map.panTo(e.layer.getLatLng());
-			if(e.layer.feature.properties.id)
-			{writeClicked(e.layer.feature.properties.id, 'clicked');}
-			else
-			{writeClicked('', 'clicked');}
+			writeClicked(e.layer.feature.properties.id, 'clicked');
 		});
 		markersLayer.on('dblclick', function(e) {
-			console.log('double-click')
-			if(e.layer.feature.properties.id)
-			{writeClicked(e.layer.feature.properties.id, 'double-clicked');}
-			else
-			{writeClicked('', 'double-clicked');}
+
+			writeClicked(e.layer.feature.properties.id, 'double-clicked');
 		});
 		/**MARKER EVENTS END */
 
@@ -668,7 +661,7 @@ var endSelection = function endSelection(tempEnd) {
 	}
 
 	// if (selectedMarkers.length >= 100) {
-	// 	console.log('Select a smaller number of features, currently: ${selectedMarkers.length}');
+	// 	console.log(`Select a smaller number of features, currently: ${selectedMarkers.length}`);
 	// }
 	// tempSelectedMarkers=selectedMarkers;
 	// selectedMarkers=new Array();
@@ -741,15 +734,6 @@ var getSelectedMarkers = function getSelectedMarkers() {
 };
 
 map.on('mousedown', mouseDown);
-
-map.on('click',function(){
-	console.log('map click')
-	writeClicked('','clicked')
-	})
-map.on('dblclick',function(){
-	console.log('map double-click')
-	writeClicked('','double-clicked')
-})
 
 
 </script>
